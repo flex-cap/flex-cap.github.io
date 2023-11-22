@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Generating Rich, Localized, and  Flexible Captions in Images.">
+  <meta name="keywords" content="Flexible, Captions, VQA, Visual Recognition, Visual Dialog">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FlexCap: Generating Rich, Localized, and  Flexible Captions in Images</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="../static/css/bulma.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="../static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="../static/css/index.css">
+  <link rel="icon" href="../static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="../static/js/fontawesome.all.min.js"></script>
+  <script src="../static/js/bulma-carousel.min.js"></script>
+  <script src="../static/js/bulma-slider.min.js"></script>
+  <script src="../static/js/index.js"></script>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+  <script>
+  var imageUrl = '13.jpg';
+var  boxes = [[ 94, 106, 213, 228],
+       [109, 127, 357, 243],
+       [345, 203, 447, 351],
+       [173,   2, 499,  20],
+       [  1, 164, 496, 373],
+       [431, 126, 498, 222],
+       [386,  82, 402,  90],
+       [263, 125, 349, 169],
+       [  0,  94, 140, 215],
+       [324, 112, 431, 207],
+       [ 84,  78, 114, 108],
+       [ 94, 211, 188, 345],
+       [  0,   1,  70, 108],
+       [164, 335, 192, 355],
+       [385,  66, 426, 113],
+       [  0, 157, 127, 265],
+       [  0,   0,  78, 214],
+       [ 33, 166,  44, 180],
+       [259, 244, 267, 257],
+       [473, 124, 499, 141],
+       [375, 202, 420, 224],
+       [229, 115, 269, 135],
+       [330, 336, 369, 349],
+       [416, 108, 443, 129],
+       [272,  81, 282, 101],
+       [341, 113, 351, 123],
+       [ 87, 322, 129, 342],
+       [173, 186, 212, 242],
+       [ 81,  77, 115, 136],
+       [204, 245, 211, 253],
+       [ 45, 103, 225, 134],
+       [159,  93, 193, 131],
+       [  0,  27, 490, 251],
+       [420, 348, 450, 360],
+       [181, 174, 352, 274],
+       [273,  65, 424, 131],
+       [205, 236, 214, 254],
+       [268, 199, 273, 205],
+       [342, 147, 374, 167],
+       [430, 187, 498, 221],
+       [266,  80, 282, 130],
+       [488, 171, 499, 214],
+       [ 76, 108, 100, 138],
+       [152, 103, 167, 115],
+       [444, 127, 456, 137],
+       [360, 198, 379, 211],
+       [  4, 102, 482, 215],
+       [257,  95, 281, 132],
+       [309,  68, 458, 357],
+       [178, 132, 237, 237],
+       [226,  83, 349, 156],
+       [  1,   0, 495, 116],
+       [121, 207, 168, 226],
+       [  0,  95,  45, 213],
+       [209,  98, 242, 121],
+       [188, 108, 271, 139],
+       [449, 126, 499, 179],
+       [225,  90, 280, 133],
+       [390, 215, 411, 224],
+       [172, 333, 191, 345],
+       [439, 111, 468, 139],
+       [307,  94, 334, 123],
+       [373, 116, 402, 200],
+       [204, 124, 262, 147],
+       [406, 325, 425, 349],
+       [  0,  88,  22, 101],
+       [260, 218, 355, 234],
+       [219, 116, 233, 135],
+       [131, 216, 168, 227],
+       [348, 197, 383, 313],
+       [379,  94, 384, 102],
+       [301, 126, 346, 159],
+       [ 85,  84, 101, 103],
+       [ 33, 103,  80, 108]];
+var captions = ['a red long sleeve shirt', 'a blue and white tent', 'man wearing pants', 'a power line', 'the grass is green and brown', 'a small tent', 'man wearing sunglasses', 'a small blue and white tent', 'a tent is in the background', 'striped shirt on man', 'a brown baseball', 'man wearing pants', 'a tent in the background', 'a white and black shoe', 'man with red hair', 'a blue and white hammock', 'a tent is in the background', 'white tag on tent', 'a small orange cone', 'a white tent', 'a brown belt', 'a white van', 'a mans brown shoe', 'a green tent in the background', 'a blue and white tent', 'a watch on a wrist', 'a mans tennis shoe', 'a green tent on the grass', 'the man is holding a ball in his hand', 'a blue and white cone', 'man holding a ball', 'the man has short hair', 'two tents in the background', 'a mans brown shoe', 'a blue string tied to the tent', 'blue tent with white writing', 'a blue and white cone', 'a yellow tag on the tent', 'a green and white tent', 'a small white tent', 'a blue and white tent', 'a white tent', 'the hand of a man', 'the man is wearing glasses', 'the mouth of a man', 'a black glove', 'tents in the background', 'a blue tent', 'man with his hands in the air', 'a white and green tent', 'a blue tent', 'trees in the background', 'man wearing a black belt', 'a tent is in the background', 'a camper in the background', 'a car is in the background', 'a white tent', 'a blue van', 'a brown belt', 'a white shoe', 'the face of a woman', 'the hand of a man', 'a man wearing a striped shirt', 'a white tent', 'a brown shoe', 'a metal tent latch', 'a white and blue tent', 'a person in a tent', 'man wearing a black belt', 'a man holding a backpack', 'the nose of a man', 'a white and blue tent', 'the man is holding a ball', 'man is wearing a green shirt'];
+
+  </script>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="hero-body">
+          <div class="container is-max-desktop">
+            <div class="columns is-centered">
+              <div class="column has-text-centered">
+                <h2 class="is-centered has-text-centered title is-3">Draw a bounding box to see a caption.</h2>
+              <h2 class="is-centered has-text-centered title is-4">Or click one of the options below.</h2>
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- Boxes link. -->
+                  <span class="link-block">
+                    <button id="button5"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Clear</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button2"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show Top 5 boxes</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button3"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show Top 10 boxes</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button4"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show Top 50 boxes</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button1"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show all boxes</span>
+                  </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function displayBoundingBoxes(imageUrl, boxes, captions) {
+        var image = new Image();
+
+        // Set the source of the image element to the given image URL
+        image.src = imageUrl;
+
+        image.onload = function() {
+          paddingY = 30;
+          paddingX = 400;
+          // Get the dimensions of the image
+          var imgWidth = image.width;
+          var imgHeight = image.height;
+          // Create a canvas element
+          var canvas = document.createElement('canvas');
+          canvas.width = imgWidth + paddingX*2;
+          canvas.height = imgHeight + paddingY;
+          var context = canvas.getContext('2d');
+
+          // Draw the image on the canvas
+          context.drawImage(image, paddingX, 0);
+
+          // Initialize bounding box coordinates
+          var startX, startY, endX, endY;
+          function typewriter(currentBox, text) {
+              var i = 0;
+              var x = currentBox[0]+paddingX;
+              var y = currentBox[3]+ 20;
+
+              var intervalId = setInterval(function() {
+                // Set the globalAlpha property of the canvas context
+                context.globalAlpha = 0.75;
+                // Draw a semi-transparent rectangle behind the text
+                context.fillStyle = "black";
+                context.fillRect(x, currentBox[3]+6, context.measureText(text[i]).width, 20);
+                // Set the globalAlpha property of the canvas context
+                context.globalAlpha = 1.0;
+
+                context.font = '20px Arial';
+                context.fillStyle = 'white';
+                context.fillText(text[i], x, y);
+                x += context.measureText(text[i]).width; // increment x by the width of the character
+                i++;
+                if (i === text.length) {
+                  clearInterval(intervalId);
+                }}, 10);
+            }
+
+          function drawbox(bestBox, caption, bestIoU, clearOthers, color="green"){
+            // Draw the bounding box
+            if (bestBox && bestIoU>0.1) {
+              // Clear the canvas
+              if (clearOthers) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.drawImage(image, paddingX, 0);
+              }
+              context.beginPath();
+              context.lineWidth = "4";
+              context.strokeStyle = color;
+              context.rect(bestBox[0]+paddingX, bestBox[1], bestBox[2] - bestBox[0], bestBox[3] - bestBox[1]);
+              context.stroke();
+              console.log("bestBox:", bestBox, "bestIoU", bestIoU, "text",  caption);
+              typewriter(bestBox, caption);
+              // context.clearRect(startX, startY, endX-startX, endY-startY)
+            }
+            else {
+              typewriter([startX-paddingX, startY, endX, endY], "No Match");
+            }
+          }
+
+         for (var i = 0; i < 5; i++) {
+          color = "#"+((1<<24)*Math.random()|0).toString(16);
+          drawbox(boxes[i], captions[i], 1.0, false, color) }
+
+
+          // Add event listeners for mouse actions
+          var isDrawing = false;
+          var bestBox = null;
+          canvas.addEventListener('mousedown', function(e) {
+            startX = e.clientX - canvas.offsetLeft;
+            startY = e.clientY - canvas.offsetTop;
+            isDrawing = true;
+             bestBox = null;
+          });
+
+          canvas.addEventListener('mousemove', function(e) {
+            if (isDrawing) {
+              var currentX = e.clientX - canvas.offsetLeft;
+              var currentY = e.clientY - canvas.offsetTop;
+
+              // Clear the canvas
+              context.clearRect(0, 0, canvas.width, canvas.height);
+              context.drawImage(image, paddingX, 0);
+
+              // Draw the bounding box
+              context.beginPath();
+              context.lineWidth = "4";
+              context.strokeStyle = "red";
+              var width = currentX - startX;
+              var height = currentY - startY;
+              context.rect(startX, startY, width, height);
+              context.stroke();
+
+              // Update bounding box coordinates
+              endX = currentX;
+              endY = currentY;
+            }
+          });
+
+          canvas.addEventListener('mouseup', function(e) {
+            isDrawing = false;
+
+            // Order coords in increasing order.
+            startXC = Math.min(startX, endX);
+            startYC = Math.min(startY, endY);
+            endXC = Math.max(startX, endX);
+            endYC = Math.max(startY, endY);
+            startX = startXC;
+            endX = endXC
+            startY = startYC;
+            endY = endYC;
+
+            console.log("Start X:", startX, "Start Y:", startY, "End X:", endX, "End Y:", endY);
+
+            var bestIoU = 0.0;
+            var caption = 'No Match'
+            for (var i = 0; i < boxes.length; i++) {
+              var box = boxes[i];
+              var intersectionX1 = Math.max(box[0]+paddingX, startX);
+              var intersectionY1 = Math.max(box[1], startY);
+              var intersectionX2 = Math.min(box[2]+paddingX, endX);
+              var intersectionY2 = Math.min(box[3], endY);
+              var intersectionWidth = Math.max(0, intersectionX2 - intersectionX1);
+              var intersectionHeight = Math.max(0, intersectionY2 - intersectionY1);
+              var intersectionArea = intersectionWidth * intersectionHeight;
+              var boxArea = (box[2] - box[0]) * (box[3] - box[1]);
+              var drawnBoxArea = (endX - startX) * (endY - startY);
+              var unionArea = boxArea + drawnBoxArea - intersectionArea;
+              var iou = intersectionArea / (unionArea+1e-6);
+              if (iou > bestIoU) {
+                bestBox = box;
+                bestIoU = iou;
+                caption = captions[i]
+              }
+            }
+            drawbox(bestBox, caption, bestIoU, true);
+
+
+          });
+          // Add the canvas to the document body
+          document.body.appendChild(canvas);
+          button = document.getElementById('button1');
+          // Add an event listener to the button
+          button.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < boxes.length; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button2 = document.getElementById('button2')
+          // Add an event listener to the button
+          button2.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < 5; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button3 = document.getElementById('button3')
+          // Add an event listener to the button
+          button3.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < 10; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button4 = document.getElementById('button4')
+          // Add an event listener to the button
+          button4.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < 50; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button5 = document.getElementById('button5')
+          // Add an event listener to the button
+          button5.addEventListener("click", function() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(image, paddingX, 0);});
+
+        };
+      }
+      displayBoundingBoxes(imageUrl, boxes, captions);
+  </script>
+</body>
+</html>
+

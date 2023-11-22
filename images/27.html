@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Generating Rich, Localized, and  Flexible Captions in Images.">
+  <meta name="keywords" content="Flexible, Captions, VQA, Visual Recognition, Visual Dialog">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FlexCap: Generating Rich, Localized, and  Flexible Captions in Images</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="../static/css/bulma.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="../static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="../static/css/index.css">
+  <link rel="icon" href="../static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="../static/js/fontawesome.all.min.js"></script>
+  <script src="../static/js/bulma-carousel.min.js"></script>
+  <script src="../static/js/bulma-slider.min.js"></script>
+  <script src="../static/js/index.js"></script>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+  <script>
+  var imageUrl = '27.jpg';
+var  boxes = [[219, 122, 289, 233],
+       [117, 161, 170, 235],
+       [ 74, 147, 109, 233],
+       [307, 146, 369, 233],
+       [257, 278, 302, 344],
+       [  0, 226,  46, 368],
+       [194, 273, 244, 346],
+       [261, 295, 292, 316],
+       [ 49,   0, 440,  24],
+       [403, 194, 424, 224],
+       [396, 170, 419, 182],
+       [138, 182, 155, 193],
+       [174, 153, 215, 229],
+       [259, 155, 277, 170],
+       [ 98, 211, 114, 233],
+       [275, 282, 281, 291],
+       [193, 201, 219, 232],
+       [249, 124, 271, 146],
+       [344, 195, 357, 208],
+       [279, 193, 301, 232],
+       [445, 209, 460, 234],
+       [200, 293, 233, 318],
+       [455, 216, 473, 238],
+       [ 41, 229, 476, 252],
+       [ 87, 147, 104, 165],
+       [ 36, 211,  63, 234],
+       [334, 195, 355, 212],
+       [397, 138, 414, 152],
+       [230, 187, 254, 211],
+       [ 76, 174, 109, 204],
+       [  5, 359, 498, 374],
+       [129, 209, 142, 218],
+       [ 36,  56, 467, 232],
+       [199, 302, 222, 314],
+       [238, 160, 252, 171],
+       [180, 184, 209, 196],
+       [338, 203, 350, 211],
+       [ 19, 120, 489, 367],
+       [233, 156, 245, 166],
+       [260, 173, 278, 182],
+       [441,   1, 498, 238],
+       [175, 161, 202, 182],
+       [373, 208, 396, 233],
+       [ 79, 193,  97, 201],
+       [214, 283, 220, 291],
+       [  0,   1,  56, 229],
+       [173, 205, 189, 232],
+       [392, 138, 432, 226],
+       [ 92, 262, 188, 365],
+       [301, 201, 322, 233],
+       [149, 209, 161, 215],
+       [185, 252, 315, 363],
+       [309, 261, 404, 362],
+       [ 48,  32, 447,  50],
+       [393, 171, 403, 201],
+       [392, 162, 430, 197],
+       [291, 319, 299, 330],
+       [ 74, 180,  81, 212],
+       [178, 189, 209, 211],
+       [ 79, 187, 105, 195],
+       [199, 310, 205, 317],
+       [154, 211, 173, 234],
+       [278, 329, 284, 338],
+       [237, 211, 255, 233],
+       [178, 165, 215, 192],
+       [430, 207, 472, 236],
+       [ 49,  47, 439,  77],
+       [287, 328, 291, 336],
+       [288, 297, 296, 305],
+       [275, 303, 287, 316],
+       [268, 282, 274, 291],
+       [228, 313, 235, 323],
+       [214, 329, 219, 338],
+       [269, 323, 275, 332],
+       [ 99, 175, 109, 204],
+       [199, 319, 206, 330],
+       [204, 328, 211, 337],
+       [117, 210, 134, 234],
+       [223, 325, 228, 332],
+       [285, 286, 289, 295],
+       [293, 310, 299, 317],
+       [397, 180, 423, 196],
+       [182, 154, 210, 180],
+       [231, 303, 237, 309],
+       [199, 299, 206, 304],
+       [ 84, 214,  98, 234],
+       [ 32, 207, 471, 235],
+       [260, 303, 266, 309],
+       [393, 209, 410, 233],
+       [222, 283, 227, 291],
+       [255, 201, 270, 214],
+       [326, 199, 331, 203],
+       [335, 191, 340, 196],
+       [413, 263, 446, 363],
+       [ 70, 263, 101, 363],
+       [ 47,   2, 449,  80],
+       [329, 184, 335, 189],
+       [205, 288, 212, 296],
+       [ 80, 203,  99, 233],
+       [ 34, 215,  49, 234],
+       [  0, 226,  44, 235],
+       [195, 167, 215, 185],
+       [221, 291, 234, 303],
+       [158, 201, 168, 210],
+       [393, 262, 424, 361],
+       [272, 208, 282, 216],
+       [262, 312, 270, 323],
+       [142, 206, 147, 210],
+       [145, 185, 152, 192],
+       [230, 200, 244, 211],
+       [309, 203, 368, 233],
+       [  0, 284,  12, 297],
+       [327, 150, 341, 162],
+       [196, 154, 210, 166]];
+var captions = ['a christmas tree with a santa claus decoration', 'a small christmas tree', 'a large christmas soldier figurine', 'a small christmas tree', 'the clock is white', 'purple trash can on the left', 'a clock with roman numerals', 'black hands on a clock', 'decorative molding on the ceiling', 'blue pants on a soldier', 'the uniform is red', 'a red bow on the tree', 'a santa claus statue', 'a red bow on the tree', 'a small christmas tree', 'black and white button on the clock', 'a small christmas tree', 'a red bow on the top of the christmas tree', 'a red bow on the tree', 'a small christmas tree', 'a small christmas tree', 'black hands on a clock', 'a small christmas tree', 'the mantle is brown', 'a blue hat on a soldier', 'a small christmas tree', 'a red bow on the tree', 'a black hat on a soldier', 'a red bow on the tree', 'the soldier is wearing a red jacket', 'a brown wooden mantle', 'a red bow on the tree', 'the wall is made of tan tiles', 'black hands on a clock', 'a red bow on the tree', 'the belt on the santa is red', 'a red bow on the tree', 'a clock with santa and two soldier figurines', 'a red bow on the tree', 'a red bow on the tree', 'a window with a white frame', 'a white beard on a santa', 'small christmas tree on the table', 'blue belt on soldier', 'black colored clock time', 'a window on the wall', 'a small christmas tree', 'a large soldier figurine on top of the fireplace', 'the wall is made of wood', 'a small christmas tree', 'a red bow on the tree', 'a clock with roman numerals', 'the wall is made of wood', 'decorative molding on the wall', 'the arm of a soldier', 'the uniform is red', 'roman numeral on clock', 'the arm of a soldier', 'a white belt around the coat', 'the soldier is wearing a blue belt', 'roman numeral on clock', 'a small christmas tree', 'roman numeral on clock', 'small green christmas tree', 'the arm of a santa', 'a small christmas tree', 'decorative stone on the wall', 'roman numeral on clock', 'roman numeral on clock', 'black colored roman numeral clock', 'black and white button on the clock', 'roman numeral on clock', 'roman numeral on clock', 'roman numeral on clock', 'the arm of a soldier', 'roman numeral on clock', 'roman numeral on clock', 'a small christmas tree', 'roman numeral on clock', 'black and white button on the clock', 'roman numeral on clock', 'red belt on soldier', 'a white beard on a santa', 'roman numeral on clock', 'roman numeral on clock', 'a small christmas tree', 'the christmas trees on the mantle', 'roman numeral on clock', 'small christmas tree on the table', 'black colored roman numeral on clock', 'a red christmas tree ornament', 'white ball on christmas tree', 'white ball on christmas tree', 'the wall is made of wood', 'the wall is made of wood', 'decorative stone on the wall', 'white ball on christmas tree', 'black colored roman numeral', 'blue pants on a soldier', 'a small christmas tree', 'a silver top on a bin', 'the santa is white', 'roman numeral on clock', 'a red and white christmas tree ornament', 'the wall is made of wood', 'a red christmas tree ornament', 'roman numeral on clock', 'a white star on the tree', 'a red star on the tree', 'a red christmas tree ornament', 'a small christmas tree', 'white number on a purple bin', 'a small christmas tree decoration', 'a white beard on a santa claus'];
+
+  </script>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="hero-body">
+          <div class="container is-max-desktop">
+            <div class="columns is-centered">
+              <div class="column has-text-centered">
+                <h2 class="is-centered has-text-centered title is-3">Draw a bounding box to see a caption.</h2>
+              <h2 class="is-centered has-text-centered title is-4">Or click one of the options below.</h2>
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- Boxes link. -->
+                  <span class="link-block">
+                    <button id="button5"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Clear</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button2"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show Top 5 boxes</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button3"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show Top 10 boxes</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button4"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show Top 50 boxes</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button1"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show all boxes</span>
+                  </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function displayBoundingBoxes(imageUrl, boxes, captions) {
+        var image = new Image();
+
+        // Set the source of the image element to the given image URL
+        image.src = imageUrl;
+
+        image.onload = function() {
+          paddingY = 30;
+          paddingX = 400;
+          // Get the dimensions of the image
+          var imgWidth = image.width;
+          var imgHeight = image.height;
+          // Create a canvas element
+          var canvas = document.createElement('canvas');
+          canvas.width = imgWidth + paddingX*2;
+          canvas.height = imgHeight + paddingY;
+          var context = canvas.getContext('2d');
+
+          // Draw the image on the canvas
+          context.drawImage(image, paddingX, 0);
+
+          // Initialize bounding box coordinates
+          var startX, startY, endX, endY;
+          function typewriter(currentBox, text) {
+              var i = 0;
+              var x = currentBox[0]+paddingX;
+              var y = currentBox[3]+ 20;
+
+              var intervalId = setInterval(function() {
+                // Set the globalAlpha property of the canvas context
+                context.globalAlpha = 0.75;
+                // Draw a semi-transparent rectangle behind the text
+                context.fillStyle = "black";
+                context.fillRect(x, currentBox[3]+6, context.measureText(text[i]).width, 20);
+                // Set the globalAlpha property of the canvas context
+                context.globalAlpha = 1.0;
+
+                context.font = '20px Arial';
+                context.fillStyle = 'white';
+                context.fillText(text[i], x, y);
+                x += context.measureText(text[i]).width; // increment x by the width of the character
+                i++;
+                if (i === text.length) {
+                  clearInterval(intervalId);
+                }}, 10);
+            }
+
+          function drawbox(bestBox, caption, bestIoU, clearOthers, color="green"){
+            // Draw the bounding box
+            if (bestBox && bestIoU>0.1) {
+              // Clear the canvas
+              if (clearOthers) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.drawImage(image, paddingX, 0);
+              }
+              context.beginPath();
+              context.lineWidth = "4";
+              context.strokeStyle = color;
+              context.rect(bestBox[0]+paddingX, bestBox[1], bestBox[2] - bestBox[0], bestBox[3] - bestBox[1]);
+              context.stroke();
+              console.log("bestBox:", bestBox, "bestIoU", bestIoU, "text",  caption);
+              typewriter(bestBox, caption);
+              // context.clearRect(startX, startY, endX-startX, endY-startY)
+            }
+            else {
+              typewriter([startX-paddingX, startY, endX, endY], "No Match");
+            }
+          }
+
+         for (var i = 0; i < 5; i++) {
+          color = "#"+((1<<24)*Math.random()|0).toString(16);
+          drawbox(boxes[i], captions[i], 1.0, false, color) }
+
+
+          // Add event listeners for mouse actions
+          var isDrawing = false;
+          var bestBox = null;
+          canvas.addEventListener('mousedown', function(e) {
+            startX = e.clientX - canvas.offsetLeft;
+            startY = e.clientY - canvas.offsetTop;
+            isDrawing = true;
+             bestBox = null;
+          });
+
+          canvas.addEventListener('mousemove', function(e) {
+            if (isDrawing) {
+              var currentX = e.clientX - canvas.offsetLeft;
+              var currentY = e.clientY - canvas.offsetTop;
+
+              // Clear the canvas
+              context.clearRect(0, 0, canvas.width, canvas.height);
+              context.drawImage(image, paddingX, 0);
+
+              // Draw the bounding box
+              context.beginPath();
+              context.lineWidth = "4";
+              context.strokeStyle = "red";
+              var width = currentX - startX;
+              var height = currentY - startY;
+              context.rect(startX, startY, width, height);
+              context.stroke();
+
+              // Update bounding box coordinates
+              endX = currentX;
+              endY = currentY;
+            }
+          });
+
+          canvas.addEventListener('mouseup', function(e) {
+            isDrawing = false;
+
+            // Order coords in increasing order.
+            startXC = Math.min(startX, endX);
+            startYC = Math.min(startY, endY);
+            endXC = Math.max(startX, endX);
+            endYC = Math.max(startY, endY);
+            startX = startXC;
+            endX = endXC
+            startY = startYC;
+            endY = endYC;
+
+            console.log("Start X:", startX, "Start Y:", startY, "End X:", endX, "End Y:", endY);
+
+            var bestIoU = 0.0;
+            var caption = 'No Match'
+            for (var i = 0; i < boxes.length; i++) {
+              var box = boxes[i];
+              var intersectionX1 = Math.max(box[0]+paddingX, startX);
+              var intersectionY1 = Math.max(box[1], startY);
+              var intersectionX2 = Math.min(box[2]+paddingX, endX);
+              var intersectionY2 = Math.min(box[3], endY);
+              var intersectionWidth = Math.max(0, intersectionX2 - intersectionX1);
+              var intersectionHeight = Math.max(0, intersectionY2 - intersectionY1);
+              var intersectionArea = intersectionWidth * intersectionHeight;
+              var boxArea = (box[2] - box[0]) * (box[3] - box[1]);
+              var drawnBoxArea = (endX - startX) * (endY - startY);
+              var unionArea = boxArea + drawnBoxArea - intersectionArea;
+              var iou = intersectionArea / (unionArea+1e-6);
+              if (iou > bestIoU) {
+                bestBox = box;
+                bestIoU = iou;
+                caption = captions[i]
+              }
+            }
+            drawbox(bestBox, caption, bestIoU, true);
+
+
+          });
+          // Add the canvas to the document body
+          document.body.appendChild(canvas);
+          button = document.getElementById('button1');
+          // Add an event listener to the button
+          button.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < boxes.length; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button2 = document.getElementById('button2')
+          // Add an event listener to the button
+          button2.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < 5; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button3 = document.getElementById('button3')
+          // Add an event listener to the button
+          button3.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < 10; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button4 = document.getElementById('button4')
+          // Add an event listener to the button
+          button4.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < 50; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button5 = document.getElementById('button5')
+          // Add an event listener to the button
+          button5.addEventListener("click", function() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(image, paddingX, 0);});
+
+        };
+      }
+      displayBoundingBoxes(imageUrl, boxes, captions);
+  </script>
+</body>
+</html>
+

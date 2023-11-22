@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Generating Rich, Localized, and  Flexible Captions in Images.">
+  <meta name="keywords" content="Flexible, Captions, VQA, Visual Recognition, Visual Dialog">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FlexCap: Generating Rich, Localized, and  Flexible Captions in Images</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="../static/css/bulma.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="../static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="../static/css/index.css">
+  <link rel="icon" href="../static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="../static/js/fontawesome.all.min.js"></script>
+  <script src="../static/js/bulma-carousel.min.js"></script>
+  <script src="../static/js/bulma-slider.min.js"></script>
+  <script src="../static/js/index.js"></script>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+  <script>
+  var imageUrl = '28.jpg';
+var  boxes = [[205,   0, 499,  54],
+       [ 93, 155, 211, 309],
+       [449,  29, 489,  52],
+       [257, 272, 499, 329],
+       [174,  34, 250, 195],
+       [ 93, 163, 144, 303],
+       [164, 162, 206, 291],
+       [  4, 262, 498, 332],
+       [194, 164, 278, 330],
+       [279, 156, 318, 290],
+       [408,  10, 442,  34],
+       [373, 145, 452, 303],
+       [421,  36, 451,  54],
+       [ 57,  43, 148, 150],
+       [222,  42, 332, 146],
+       [263,  10, 283,  33],
+       [  0, 121,  28, 306],
+       [397, 219, 406, 229],
+       [  0,   4, 450, 322],
+       [385, 239, 394, 249],
+       [  5, 295,  28, 308],
+       [439,   8, 467,  28],
+       [336,   5, 381,  52],
+       [236,   8, 274,  31],
+       [274,   4, 301,  24],
+       [374,   0, 499,  53],
+       [388, 277, 401, 295],
+       [385,  18, 424,  40],
+       [176,  21, 429, 189],
+       [ 95, 294, 116, 305],
+       [  0, 238,  26, 307],
+       [  1,  13, 214, 147],
+       [393, 270, 423, 300],
+       [162, 295, 185, 317],
+       [217, 287, 246, 325],
+       [  0, 123,  17, 189],
+       [476,  29, 497,  48],
+       [387,  36, 422,  49],
+       [284, 148, 392, 290],
+       [130, 151, 186, 316],
+       [468,   8, 492,  27],
+       [388, 236, 396, 243],
+       [388, 145, 414, 188],
+       [279,  90, 360, 156],
+       [327,  46, 447, 193],
+       [292,   0, 379,  36],
+       [379, 202, 415, 288],
+       [195, 167, 219, 200],
+       [222, 124, 246, 209],
+       [118, 160, 138, 197],
+       [381,  21, 408,  38],
+       [  2, 137, 215, 309],
+       [386,  35, 448,  54],
+       [433, 149, 451, 182],
+       [416, 147, 451, 204],
+       [253, 235, 258, 243],
+       [ 81, 140, 444, 317],
+       [167, 161, 189, 178],
+       [242, 171, 275, 200],
+       [190, 281, 208, 294],
+       [261, 278, 378, 325],
+       [ 66,   0, 125,  22],
+       [  0, 123,  18, 144],
+       [385, 286, 498, 329],
+       [470,   0, 495,  13],
+       [202, 174, 212, 187],
+       [386,   0, 413,  12],
+       [397, 213, 406, 226],
+       [  0,  45,  55, 123],
+       [410,   2, 466,  28],
+       [376,  62, 496,  88],
+       [358,  42, 499,  81],
+       [401,  19, 425,  36],
+       [112, 178, 140, 224],
+       [208, 220, 258, 299],
+       [223, 313, 240, 327],
+       [387, 177, 440, 224],
+       [ 83, 328, 110, 332],
+       [  1, 286,  26, 307],
+       [230, 288, 246, 312],
+       [431,  30, 452,  43],
+       [377,   2, 446,  41],
+       [405, 219, 412, 227],
+       [ 50, 139, 112, 160],
+       [ 94, 276, 116, 304],
+       [  0,   5,  88,  62],
+       [164,  15, 297,  41],
+       [206, 231, 215, 239],
+       [168, 274, 181, 291],
+       [  0, 117,   6, 129],
+       [121, 182, 132, 197],
+       [220, 231, 255, 285],
+       [219, 282, 234, 306],
+       [324,  83, 411, 165],
+       [372, 170, 384, 187],
+       [  0,   6, 203,  82],
+       [334, 153, 390, 280],
+       [197,   0, 220,  20],
+       [216, 298, 225, 315],
+       [120, 158, 198, 185],
+       [408, 279, 423, 296],
+       [395,  76, 499, 202],
+       [400, 194, 432, 236],
+       [422, 193, 442, 225],
+       [329,  47, 399, 118],
+       [193, 165, 274, 203],
+       [212, 235, 227, 253]];
+var captions = ['a pile of rocks', 'the front legs of a zebra', 'large gray rock on the ground', 'the grass is dry', 'a zebras mane', 'a zebras right front leg', 'a leg of a zebra', 'the grass is dry', 'the head of a zebra', 'a leg of a zebra', 'large gray rock in background', 'a zebras head', 'a large grey rock', 'brown and white stripes', 'brown and white stripes', 'a large gray rock', 'a zebras leg', 'a black eye on a zebra', 'two zebras eating hay', 'a black zebra eye', 'a zebras left front hoof', 'a large grey rock', 'a large rock in the background', 'a large gray rock', 'a large grey rock', 'a pile of rocks', 'the nose of a zebra', 'large gray rock in the background', 'a zebra with a short mane', 'a zebras left front hoof', 'a zebras front right leg', 'brown and white stripes', 'black nose of zebra', 'a black zebra hoof', 'black nose of zebra', 'a zebras leg', 'a large grey rock', 'a large grey rock', 'a leg of a zebra', 'a zebras front right leg', 'a large grey rock', 'a black eye on a zebra', 'the ear of a zebra', 'brown and white stripes', 'the mane of a zebra', 'a large rock behind the rock', 'the zebras face is white', 'the ear of a zebra', 'the mane of a zebra', 'a black and white zebras leg', 'a large grey rock', 'the legs of a zebra', 'large gray rock on ground', 'the ear of a zebra', 'the zebras mane is brown', 'eye of a zebra', 'zebras are eating hay', 'black and white stripes on animal', 'the ear of a zebra', 'a black hoof on a zebra', 'the grass is dry', 'a wooden post', 'a black spot on a zebras leg', 'the grass is dry', 'a large grey rock', 'a black and white ear', 'a large grey rock', 'a black eye on a zebra', 'brown and white stripes', 'large gray rocks behind the zebras', 'a patch of green grass', 'a patch of dirt', 'a large grey rock', 'black and white stripes on a zebra', 'the zebra has a black nose', 'nose of a zebra', 'the zebras ears are down', 'a white rock on the ground', 'a zebras left front hoof', 'black nose of a zebra', 'a large grey rock', 'large gray rocks in the background', 'a black eye on a zebra', 'the zebras belly is white', 'a black zebra hoof', 'brown and white stripes on a zebra', 'brown and white mane on zebra', 'a black eye on a zebra', 'black hoof of zebra', 'a black spot on a zebras leg', 'a black stripe on a zebra', 'the zebras nose is black', 'the nose of a zebra', 'the mane of a zebra', 'a zebras right ear', 'brown and white stripes on zebra', 'a zebras right front leg', 'a brown spot on the rock', 'the nose of a zebra', 'black and white stripes on zebra', 'the nose of a zebra', 'the ground is white', 'the eye is black', 'the eye of a zebra', 'the zebra has a mane', 'the ears of a zebra', 'the eye of a zebra'];
+
+  </script>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="hero-body">
+          <div class="container is-max-desktop">
+            <div class="columns is-centered">
+              <div class="column has-text-centered">
+                <h2 class="is-centered has-text-centered title is-3">Draw a bounding box to see a caption.</h2>
+              <h2 class="is-centered has-text-centered title is-4">Or click one of the options below.</h2>
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- Boxes link. -->
+                  <span class="link-block">
+                    <button id="button5"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Clear</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button2"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show Top 5 boxes</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button3"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show Top 10 boxes</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button4"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show Top 50 boxes</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button1"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show all boxes</span>
+                  </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function displayBoundingBoxes(imageUrl, boxes, captions) {
+        var image = new Image();
+
+        // Set the source of the image element to the given image URL
+        image.src = imageUrl;
+
+        image.onload = function() {
+          paddingY = 30;
+          paddingX = 400;
+          // Get the dimensions of the image
+          var imgWidth = image.width;
+          var imgHeight = image.height;
+          // Create a canvas element
+          var canvas = document.createElement('canvas');
+          canvas.width = imgWidth + paddingX*2;
+          canvas.height = imgHeight + paddingY;
+          var context = canvas.getContext('2d');
+
+          // Draw the image on the canvas
+          context.drawImage(image, paddingX, 0);
+
+          // Initialize bounding box coordinates
+          var startX, startY, endX, endY;
+          function typewriter(currentBox, text) {
+              var i = 0;
+              var x = currentBox[0]+paddingX;
+              var y = currentBox[3]+ 20;
+
+              var intervalId = setInterval(function() {
+                // Set the globalAlpha property of the canvas context
+                context.globalAlpha = 0.75;
+                // Draw a semi-transparent rectangle behind the text
+                context.fillStyle = "black";
+                context.fillRect(x, currentBox[3]+6, context.measureText(text[i]).width, 20);
+                // Set the globalAlpha property of the canvas context
+                context.globalAlpha = 1.0;
+
+                context.font = '20px Arial';
+                context.fillStyle = 'white';
+                context.fillText(text[i], x, y);
+                x += context.measureText(text[i]).width; // increment x by the width of the character
+                i++;
+                if (i === text.length) {
+                  clearInterval(intervalId);
+                }}, 10);
+            }
+
+          function drawbox(bestBox, caption, bestIoU, clearOthers, color="green"){
+            // Draw the bounding box
+            if (bestBox && bestIoU>0.1) {
+              // Clear the canvas
+              if (clearOthers) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.drawImage(image, paddingX, 0);
+              }
+              context.beginPath();
+              context.lineWidth = "4";
+              context.strokeStyle = color;
+              context.rect(bestBox[0]+paddingX, bestBox[1], bestBox[2] - bestBox[0], bestBox[3] - bestBox[1]);
+              context.stroke();
+              console.log("bestBox:", bestBox, "bestIoU", bestIoU, "text",  caption);
+              typewriter(bestBox, caption);
+              // context.clearRect(startX, startY, endX-startX, endY-startY)
+            }
+            else {
+              typewriter([startX-paddingX, startY, endX, endY], "No Match");
+            }
+          }
+
+         for (var i = 0; i < 5; i++) {
+          color = "#"+((1<<24)*Math.random()|0).toString(16);
+          drawbox(boxes[i], captions[i], 1.0, false, color) }
+
+
+          // Add event listeners for mouse actions
+          var isDrawing = false;
+          var bestBox = null;
+          canvas.addEventListener('mousedown', function(e) {
+            startX = e.clientX - canvas.offsetLeft;
+            startY = e.clientY - canvas.offsetTop;
+            isDrawing = true;
+             bestBox = null;
+          });
+
+          canvas.addEventListener('mousemove', function(e) {
+            if (isDrawing) {
+              var currentX = e.clientX - canvas.offsetLeft;
+              var currentY = e.clientY - canvas.offsetTop;
+
+              // Clear the canvas
+              context.clearRect(0, 0, canvas.width, canvas.height);
+              context.drawImage(image, paddingX, 0);
+
+              // Draw the bounding box
+              context.beginPath();
+              context.lineWidth = "4";
+              context.strokeStyle = "red";
+              var width = currentX - startX;
+              var height = currentY - startY;
+              context.rect(startX, startY, width, height);
+              context.stroke();
+
+              // Update bounding box coordinates
+              endX = currentX;
+              endY = currentY;
+            }
+          });
+
+          canvas.addEventListener('mouseup', function(e) {
+            isDrawing = false;
+
+            // Order coords in increasing order.
+            startXC = Math.min(startX, endX);
+            startYC = Math.min(startY, endY);
+            endXC = Math.max(startX, endX);
+            endYC = Math.max(startY, endY);
+            startX = startXC;
+            endX = endXC
+            startY = startYC;
+            endY = endYC;
+
+            console.log("Start X:", startX, "Start Y:", startY, "End X:", endX, "End Y:", endY);
+
+            var bestIoU = 0.0;
+            var caption = 'No Match'
+            for (var i = 0; i < boxes.length; i++) {
+              var box = boxes[i];
+              var intersectionX1 = Math.max(box[0]+paddingX, startX);
+              var intersectionY1 = Math.max(box[1], startY);
+              var intersectionX2 = Math.min(box[2]+paddingX, endX);
+              var intersectionY2 = Math.min(box[3], endY);
+              var intersectionWidth = Math.max(0, intersectionX2 - intersectionX1);
+              var intersectionHeight = Math.max(0, intersectionY2 - intersectionY1);
+              var intersectionArea = intersectionWidth * intersectionHeight;
+              var boxArea = (box[2] - box[0]) * (box[3] - box[1]);
+              var drawnBoxArea = (endX - startX) * (endY - startY);
+              var unionArea = boxArea + drawnBoxArea - intersectionArea;
+              var iou = intersectionArea / (unionArea+1e-6);
+              if (iou > bestIoU) {
+                bestBox = box;
+                bestIoU = iou;
+                caption = captions[i]
+              }
+            }
+            drawbox(bestBox, caption, bestIoU, true);
+
+
+          });
+          // Add the canvas to the document body
+          document.body.appendChild(canvas);
+          button = document.getElementById('button1');
+          // Add an event listener to the button
+          button.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < boxes.length; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button2 = document.getElementById('button2')
+          // Add an event listener to the button
+          button2.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < 5; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button3 = document.getElementById('button3')
+          // Add an event listener to the button
+          button3.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < 10; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button4 = document.getElementById('button4')
+          // Add an event listener to the button
+          button4.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < 50; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button5 = document.getElementById('button5')
+          // Add an event listener to the button
+          button5.addEventListener("click", function() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(image, paddingX, 0);});
+
+        };
+      }
+      displayBoundingBoxes(imageUrl, boxes, captions);
+  </script>
+</body>
+</html>
+

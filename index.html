@@ -1,0 +1,150 @@
+<style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+    h1 {
+      display: flex;
+
+      font-family: 'Lora', serif;
+      text-align: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .gallery {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+}
+
+
+
+
+.gallery img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.2s ease-in-out;
+transition: box-shadow 0.2s ease-in-out;
+
+}
+
+.gallery img:hover {
+  transform: scale(1.025);
+ box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+
+</style>  
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Generating Rich, Localized, and  Flexible Captions in Images.">
+  <meta name="keywords" content="Flexible, Captions, VQA, Visual Recognition, Visual Dialog">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FlexCap: Generating Rich, Localized, and  Flexible Captions in Images</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">FlexCap: Generating Rich, Localized, and  Flexible Captions in Images</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                Anonymous Authors
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src=""
+                type="video/mp4">
+      </video> -->
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">FlexCap</span> can describe any bounding box you draw on an image.
+      </h2>
+      <br>
+      <h2 class="has-text-centered title is-3"> Select an image below. </h2>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->              
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="gallery">
+<a href="images/00.html"><img src="images/00.jpg" height=600 width=800></a>
+<a href="images/01.html"><img src="images/01.jpg" height=600 width=800></a>
+<a href="images/02.html"><img src="images/02.jpg" height=600 width=800></a>
+<a href="images/03.html"><img src="images/03.jpg" height=600 width=800></a>
+<a href="images/04.html"><img src="images/04.jpg" height=600 width=800></a>
+<a href="images/05.html"><img src="images/05.jpg" height=600 width=800></a>
+<a href="images/06.html"><img src="images/06.jpg" height=600 width=800></a>
+<a href="images/07.html"><img src="images/07.jpg" height=600 width=800></a>
+<a href="images/08.html"><img src="images/08.jpg" height=600 width=800></a>
+<a href="images/09.html"><img src="images/09.jpg" height=600 width=800></a>
+<a href="images/10.html"><img src="images/10.jpg" height=600 width=800></a>
+<a href="images/11.html"><img src="images/11.jpg" height=600 width=800></a>
+<a href="images/12.html"><img src="images/12.jpg" height=600 width=800></a>
+<a href="images/13.html"><img src="images/13.jpg" height=600 width=800></a>
+<a href="images/14.html"><img src="images/14.jpg" height=600 width=800></a>
+<a href="images/15.html"><img src="images/15.jpg" height=600 width=800></a>
+<a href="images/16.html"><img src="images/16.jpg" height=600 width=800></a>
+<a href="images/17.html"><img src="images/17.jpg" height=600 width=800></a>
+<a href="images/18.html"><img src="images/18.jpg" height=600 width=800></a>
+<a href="images/19.html"><img src="images/19.jpg" height=600 width=800></a>
+<a href="images/20.html"><img src="images/20.jpg" height=600 width=800></a>
+<a href="images/21.html"><img src="images/21.jpg" height=600 width=800></a>
+<a href="images/22.html"><img src="images/22.jpg" height=600 width=800></a>
+<a href="images/23.html"><img src="images/23.jpg" height=600 width=800></a>
+<a href="images/24.html"><img src="images/24.jpg" height=600 width=800></a>
+<a href="images/25.html"><img src="images/25.jpg" height=600 width=800></a>
+<a href="images/26.html"><img src="images/26.jpg" height=600 width=800></a>
+<a href="images/27.html"><img src="images/27.jpg" height=600 width=800></a>
+<a href="images/28.html"><img src="images/28.jpg" height=600 width=800></a>
+<a href="images/29.html"><img src="images/29.jpg" height=600 width=800></a>
+<a href="images/30.html"><img src="images/30.jpg" height=600 width=800></a>
+<a href="images/31.html"><img src="images/31.jpg" height=600 width=800></a>
+<a href="images/32.html"><img src="images/32.jpg" height=600 width=800></a>
+<a href="images/33.html"><img src="images/33.jpg" height=600 width=800></a>
+<a href="images/34.html"><img src="images/34.jpg" height=600 width=800></a>
+<a href="images/35.html"><img src="images/35.jpg" height=600 width=800></a>
+<a href="images/36.html"><img src="images/36.jpg" height=600 width=800></a>
+<a href="images/37.html"><img src="images/37.jpg" height=600 width=800></a>
+<a href="images/38.html"><img src="images/38.jpg" height=600 width=800></a>
+<a href="images/39.html"><img src="images/39.jpg" height=600 width=800></a>
+  </div>
+</div>
+</div>
+<!--/ Paper video. -->
+</div>
+</section>
+</body>

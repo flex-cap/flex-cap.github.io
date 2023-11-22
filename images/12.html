@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Generating Rich, Localized, and  Flexible Captions in Images.">
+  <meta name="keywords" content="Flexible, Captions, VQA, Visual Recognition, Visual Dialog">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FlexCap: Generating Rich, Localized, and  Flexible Captions in Images</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="../static/css/bulma.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="../static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="../static/css/index.css">
+  <link rel="icon" href="../static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="../static/js/fontawesome.all.min.js"></script>
+  <script src="../static/js/bulma-carousel.min.js"></script>
+  <script src="../static/js/bulma-slider.min.js"></script>
+  <script src="../static/js/index.js"></script>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+  <script>
+  var imageUrl = '12.jpg';
+var  boxes = [[ 199,  449,  217,  460],
+       [ 227,  171,  233,  229],
+       [   4,  518,  415,  678],
+       [ 458,   99,  475,  222],
+       [ 988,  155, 1007,  166],
+       [ 812,  158,  830,  165],
+       [ 172,   71,  197,  234],
+       [ 588,  241,  703,  338],
+       [ 258,  163,  268,  236],
+       [ 511,  125,  517,  198],
+       [  42,  179,   48,  222],
+       [   3,  224,  256,  331],
+       [ 574,  131,  578,  169],
+       [ 548,  127,  553,  174],
+       [ 790,  174,  799,  395],
+       [ 619,  137,  623,  171],
+       [ 595,  133,  599,  170],
+       [ 738,  154,  746,  162],
+       [ 311,  273,  356,  298],
+       [ 221,  432,  230,  440],
+       [ 794,  280,  804,  396],
+       [ 612,  136,  616,  174],
+       [ 519,  258,  626,  364],
+       [  27,  172,   36,  226],
+       [ 772,  202,  808,  237],
+       [ 680,  142,  740,  183],
+       [ 692,  137,  700,  176],
+       [ 664,  137,  705,  176],
+       [ 698,  589,  707,  604],
+       [ 728,  207,  807,  272],
+       [ 539,  173,  763,  184],
+       [ 395,  242,  418,  256],
+       [ 873,  184,  884,  257],
+       [ 115,  177,  121,  224],
+       [ 285,  197,  297,  342],
+       [  26,  172,   36,  275],
+       [   5,  229,  527,  432],
+       [ 596,  135,  646,  191],
+       [ 178,  175,  186,  229],
+       [ 768,  191, 1023,  564],
+       [ 556,  354, 1015,  678],
+       [   1,  280,  169,  317],
+       [ 557,  130,  612,  192],
+       [ 671,  203,  808,  292],
+       [ 805,  425, 1015,  676],
+       [ 479,  179, 1022,  565],
+       [ 185,  135,  197,  229],
+       [ 697,  232,  744,  288],
+       [ 174,  296,  513,  501],
+       [ 201,  392,  277,  421],
+       [ 541,  244,  557,  256],
+       [ 543,  198,  806,  365],
+       [   0,  230,  167,  299],
+       [   0,  529,  227,  677],
+       [ 595,  132,  628,  177],
+       [ 558,  165,  590,  462],
+       [ 367,  370,  398,  398],
+       [ 114,  360,  137,  405],
+       [ 519,  247,  544,  265],
+       [ 395,  111,  404,  228],
+       [ 932,  191,  940,  198],
+       [ 410,  238,  421,  244],
+       [ 560,  264,  899,  579],
+       [ 862,  299, 1021,  581],
+       [ 600,  137,  674,  178],
+       [ 751,  195,  766,  211],
+       [ 651,  175,  661,  231],
+       [   0,  194,    8,  224],
+       [ 741,  150,  804,  211],
+       [ 812,  160,  820,  166],
+       [ 651,  191,  660,  199],
+       [ 519,  236,  564,  267],
+       [ 724,  499,  862,  678],
+       [  25,  169,   48,  260],
+       [ 419,  307,  483,  403],
+       [ 157,  228,  253,  273],
+       [ 533,  246,  553,  260],
+       [ 539,  176,  698,  186],
+       [ 526,  174,  593,  230],
+       [ 881,  163,  898,  169],
+       [ 873,  159,  979,  168],
+       [ 531,  189,  538,  224],
+       [ 681,  184,  697,  192],
+       [ 633,  162,  673,  170],
+       [ 185,  416,  282,  485],
+       [ 722,  173,  730,  176],
+       [ 680,  584,  708,  677],
+       [ 788,  168,  984,  270],
+       [ 602,  169,  662,  220],
+       [ 664,  180,  726,  203],
+       [ 629,  244,  682,  275],
+       [ 872,  177,  970,  241],
+       [ 938,  162,  968,  168],
+       [ 184,   83,  193,  234],
+       [ 687,  611,  705,  677],
+       [ 749,  188,  762,  197],
+       [ 943,  185,  956,  193],
+       [ 765,  186,  789,  212],
+       [ 377,  235,  426,  323],
+       [ 533,  177,  697,  223],
+       [ 623,  163,  705,  181],
+       [ 940,  189,  955,  208],
+       [ 908,  185,  920,  195],
+       [ 875,  163,  972,  178],
+       [ 811,  181,  823,  191],
+       [ 651,  211,  665,  228],
+       [   0,  194,    6,  201],
+       [ 941,  196, 1020,  276],
+       [ 193,  357,  298,  425],
+       [ 951,  187,  974,  254],
+       [ 890,  180,  963,  206],
+       [ 629,  183,  651,  202],
+       [ 529,  180,  791,  273],
+       [ 870,  170,  954,  187],
+       [ 743,  157,  753,  165],
+       [ 720,  148,  732,  176],
+       [ 567,  184,  743,  241],
+       [ 785,  162,  795,  210],
+       [ 761,  155,  780,  181],
+       [ 660,  175,  730,  191],
+       [ 553,  178,  617,  222],
+       [ 336,  273,  356,  293],
+       [ 441,  326,  456,  335],
+       [ 856,  198,  945,  282],
+       [ 965,  162,  972,  168],
+       [ 749,  160,  779,  164],
+       [ 606,  229,  628,  244],
+       [ 280,  222,  503,  234],
+       [ 680,  192,  688,  197],
+       [   4,  295,  256,  419],
+       [ 673,  143,  678,  169],
+       [ 590,  173,  613,  178],
+       [ 912,  161,  919,  168],
+       [ 789,  279, 1020,  349],
+       [ 749,  179,  758,  188],
+       [ 797,  167,  961,  175],
+       [ 717,  175,  755,  188],
+       [ 926,  162,  933,  168],
+       [ 681,  588,  709,  634],
+       [ 476,  351,  481,  361],
+       [ 775,  182,  784,  188],
+       [ 659,  145,  666,  171],
+       [ 611,  194,  624,  210],
+       [ 681,  584,  708,  611],
+       [ 622,  187,  676,  214],
+       [ 534,  179,  610,  186],
+       [ 681,  560,  733,  627],
+       [ 676,  157,  684,  163],
+       [ 880,  171,  884,  178],
+       [ 523,  230,  560,  240],
+       [ 778,  185,  784,  189],
+       [ 854,  182,  860,  192],
+       [ 181,  369,  293,  498]];
+var captions = ['the headlight on a train', 'this is a pole', 'a set of train tracks', 'a tall street light', 'a blue sign on the bridge', 'a blue sign on the highway', 'a tall street light', 'a silver and orange train passenger car', 'this is a pole', 'a tall street light', 'a tall street light', 'white lines on the road', 'a tall street light', 'a tall street light', 'this is a pole', 'a tall street light', 'a tall street light', 'a blue sign on a pole', 'a silver car driving on the road', 'the train is white in color', 'this is a pole', 'a tall street light', 'a silver train passenger car', 'a tall street light', 'a silver train car', 'a street light', 'a tall street light', 'a street light', 'a small black metal pole', 'a silver and orange train car', 'a bridge over the tracks', 'a car in the distance', 'a sign on a pole', 'this is a pole', 'a tall gray light pole', 'this is a pole', 'a highway with a gray railing', 'a street light', 'this is a pole', 'the train tracks are brown', 'the tracks are brown', 'white arrows on the road', 'a light pole', 'a silver and orange train', 'the train tracks are brown', 'the train is on the tracks', 'this is a pole', 'a silver and orange train passenger car', 'the train is orange', 'windshield of a train', 'a car in the distance', 'train cars are tan and red', 'white lines on the road', 'a set of train tracks', 'a light pole', 'a pole near the train', 'black lettering on side of train', 'a white pole', 'car driving on the road', 'this is a pole', 'a white sign on the road', 'a car in the distance', 'water running through the tracks', 'the train tracks are brown', 'a light pole', 'a silver train passenger car', 'a tall street light', 'a sign on a pole', 'a white street light', 'a blue sign on the pole', 'a traffic light in the distance', 'car driving on the road', 'the tracks are brown', 'this is a pole', 'the train is gray and orange', 'a road with a white line', 'a car in the distance', 'a bridge over the tracks', 'a street light', 'a blue sign on the highway', 'a highway sign', 'a pole', 'a white car in the distance', 'a street light', 'the train has a white stripe', 'a white car in the distance', 'a pole in the ground', 'a bridge over the tracks', 'a street light', 'a white car on the highway', 'windows on side of train', 'a white sign on the road', 'a blue sign on the highway', 'a tall street light', 'a pole', 'a silver train car', 'a white sign on the road', 'a silver train car', 'a white pole', 'a bridge over the tracks', 'a bridge in the distance', 'a white sign on the road', 'a white sign on the pole', 'a highway sign', 'a blue sign on the pole', 'a silver train signal light', 'a traffic light in the distance', 'a train crossing light', 'windshield on front of train', 'a sign on a pole', 'a white sign on the road', 'a traffic light in the distance', 'cars on the train', 'a blue sign on the highway', 'a blue sign on a pole', 'a traffic light in the distance', 'a bridge over a train', 'a traffic light in the distance', 'a blue sign on a pole', 'a white highway sign', 'a street light', 'a car in the distance', 'a window on a train', 'a train crossing light', 'a blue sign on the pole', 'a blue sign on the highway', 'a silver train car', 'a bridge over the road', 'a silver train car', 'a metal fence', 'a traffic light in the distance', 'a street light', 'a blue sign on the pole', 'a train crossing light', 'a silver train car', 'a blue sign on the highway', 'a silver passenger train car', 'a blue sign on the pole', 'a sign on the pole', 'small window on train', 'a silver train car', 'a traffic light in the distance', 'a traffic light in the distance', 'a small metal pole', 'a white street light', 'a green grass on the hill', 'a sign on the ground', 'a traffic light in the distance', 'a blue sign on the pole', 'a car in the distance', 'a silver train car', 'a blue sign on the pole', 'front of train is white and orange'];
+
+  </script>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="hero-body">
+          <div class="container is-max-desktop">
+            <div class="columns is-centered">
+              <div class="column has-text-centered">
+                <h2 class="is-centered has-text-centered title is-3">Draw a bounding box to see a caption.</h2>
+              <h2 class="is-centered has-text-centered title is-4">Or click one of the options below.</h2>
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- Boxes link. -->
+                  <span class="link-block">
+                    <button id="button5"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Clear</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button2"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show Top 5 boxes</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button3"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show Top 10 boxes</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button4"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show Top 50 boxes</span>
+                  </button>
+                  </span>
+                  <span class="link-block">
+                    <button id="button1"
+                        class="external-link button is-normal is-rounded is-dark">
+                      <span>Show all boxes</span>
+                  </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function displayBoundingBoxes(imageUrl, boxes, captions) {
+        var image = new Image();
+
+        // Set the source of the image element to the given image URL
+        image.src = imageUrl;
+
+        image.onload = function() {
+          paddingY = 30;
+          paddingX = 400;
+          // Get the dimensions of the image
+          var imgWidth = image.width;
+          var imgHeight = image.height;
+          // Create a canvas element
+          var canvas = document.createElement('canvas');
+          canvas.width = imgWidth + paddingX*2;
+          canvas.height = imgHeight + paddingY;
+          var context = canvas.getContext('2d');
+
+          // Draw the image on the canvas
+          context.drawImage(image, paddingX, 0);
+
+          // Initialize bounding box coordinates
+          var startX, startY, endX, endY;
+          function typewriter(currentBox, text) {
+              var i = 0;
+              var x = currentBox[0]+paddingX;
+              var y = currentBox[3]+ 20;
+
+              var intervalId = setInterval(function() {
+                // Set the globalAlpha property of the canvas context
+                context.globalAlpha = 0.75;
+                // Draw a semi-transparent rectangle behind the text
+                context.fillStyle = "black";
+                context.fillRect(x, currentBox[3]+6, context.measureText(text[i]).width, 20);
+                // Set the globalAlpha property of the canvas context
+                context.globalAlpha = 1.0;
+
+                context.font = '20px Arial';
+                context.fillStyle = 'white';
+                context.fillText(text[i], x, y);
+                x += context.measureText(text[i]).width; // increment x by the width of the character
+                i++;
+                if (i === text.length) {
+                  clearInterval(intervalId);
+                }}, 10);
+            }
+
+          function drawbox(bestBox, caption, bestIoU, clearOthers, color="green"){
+            // Draw the bounding box
+            if (bestBox && bestIoU>0.1) {
+              // Clear the canvas
+              if (clearOthers) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.drawImage(image, paddingX, 0);
+              }
+              context.beginPath();
+              context.lineWidth = "4";
+              context.strokeStyle = color;
+              context.rect(bestBox[0]+paddingX, bestBox[1], bestBox[2] - bestBox[0], bestBox[3] - bestBox[1]);
+              context.stroke();
+              console.log("bestBox:", bestBox, "bestIoU", bestIoU, "text",  caption);
+              typewriter(bestBox, caption);
+              // context.clearRect(startX, startY, endX-startX, endY-startY)
+            }
+            else {
+              typewriter([startX-paddingX, startY, endX, endY], "No Match");
+            }
+          }
+
+         for (var i = 0; i < 5; i++) {
+          color = "#"+((1<<24)*Math.random()|0).toString(16);
+          drawbox(boxes[i], captions[i], 1.0, false, color) }
+
+
+          // Add event listeners for mouse actions
+          var isDrawing = false;
+          var bestBox = null;
+          canvas.addEventListener('mousedown', function(e) {
+            startX = e.clientX - canvas.offsetLeft;
+            startY = e.clientY - canvas.offsetTop;
+            isDrawing = true;
+             bestBox = null;
+          });
+
+          canvas.addEventListener('mousemove', function(e) {
+            if (isDrawing) {
+              var currentX = e.clientX - canvas.offsetLeft;
+              var currentY = e.clientY - canvas.offsetTop;
+
+              // Clear the canvas
+              context.clearRect(0, 0, canvas.width, canvas.height);
+              context.drawImage(image, paddingX, 0);
+
+              // Draw the bounding box
+              context.beginPath();
+              context.lineWidth = "4";
+              context.strokeStyle = "red";
+              var width = currentX - startX;
+              var height = currentY - startY;
+              context.rect(startX, startY, width, height);
+              context.stroke();
+
+              // Update bounding box coordinates
+              endX = currentX;
+              endY = currentY;
+            }
+          });
+
+          canvas.addEventListener('mouseup', function(e) {
+            isDrawing = false;
+
+            // Order coords in increasing order.
+            startXC = Math.min(startX, endX);
+            startYC = Math.min(startY, endY);
+            endXC = Math.max(startX, endX);
+            endYC = Math.max(startY, endY);
+            startX = startXC;
+            endX = endXC
+            startY = startYC;
+            endY = endYC;
+
+            console.log("Start X:", startX, "Start Y:", startY, "End X:", endX, "End Y:", endY);
+
+            var bestIoU = 0.0;
+            var caption = 'No Match'
+            for (var i = 0; i < boxes.length; i++) {
+              var box = boxes[i];
+              var intersectionX1 = Math.max(box[0]+paddingX, startX);
+              var intersectionY1 = Math.max(box[1], startY);
+              var intersectionX2 = Math.min(box[2]+paddingX, endX);
+              var intersectionY2 = Math.min(box[3], endY);
+              var intersectionWidth = Math.max(0, intersectionX2 - intersectionX1);
+              var intersectionHeight = Math.max(0, intersectionY2 - intersectionY1);
+              var intersectionArea = intersectionWidth * intersectionHeight;
+              var boxArea = (box[2] - box[0]) * (box[3] - box[1]);
+              var drawnBoxArea = (endX - startX) * (endY - startY);
+              var unionArea = boxArea + drawnBoxArea - intersectionArea;
+              var iou = intersectionArea / (unionArea+1e-6);
+              if (iou > bestIoU) {
+                bestBox = box;
+                bestIoU = iou;
+                caption = captions[i]
+              }
+            }
+            drawbox(bestBox, caption, bestIoU, true);
+
+
+          });
+          // Add the canvas to the document body
+          document.body.appendChild(canvas);
+          button = document.getElementById('button1');
+          // Add an event listener to the button
+          button.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < boxes.length; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button2 = document.getElementById('button2')
+          // Add an event listener to the button
+          button2.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < 5; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button3 = document.getElementById('button3')
+          // Add an event listener to the button
+          button3.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < 10; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button4 = document.getElementById('button4')
+          // Add an event listener to the button
+          button4.addEventListener("click", function() {
+          // Do something when the button is clicked
+          for (var i = 0; i < 50; i++) {
+            // Random Color
+            color = "#"+((1<<24)*Math.random()|0).toString(16);
+            drawbox(boxes[i], captions[i], 1.0, (i==0), color=color) }});
+
+          button5 = document.getElementById('button5')
+          // Add an event listener to the button
+          button5.addEventListener("click", function() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(image, paddingX, 0);});
+
+        };
+      }
+      displayBoundingBoxes(imageUrl, boxes, captions);
+  </script>
+</body>
+</html>
+
