@@ -1,0 +1,195 @@
+<style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+    h1 {
+      display: flex;
+
+      font-family: 'Lora', serif;
+      text-align: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .gallery {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.2s ease-in-out;
+transition: box-shadow 0.2s ease-in-out;
+
+}
+
+.gallery img:hover {
+  transform: scale(1.025);
+ box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+
+</style>  
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Generating Rich, Localized, and  Flexible Captions in Images.">
+  <meta name="keywords" content="Flexible, Captions, VQA, Visual Recognition, Visual Dialog">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FlexCap: Generating Rich, Localized, and  Flexible Captions in Images</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">FlexCap: Generating Rich, Localized, and  Flexible Captions in Images</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://debidatta.github.io/">Debidatta Dwibedi</a>,
+              </span>
+              <span class="author-block">
+                <a href="https://vidhijain.github.io/">Vidhi Jain</a>,
+              </span>
+              <span class="author-block">
+                <a href="https://jonathantompson.github.io/">Jonathan Tompson</a>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.robots.ox.ac.uk/~az/">Andrew Zisserman</a>,
+              </span>
+              <span class="author-block">
+                <a href="https://people.csail.mit.edu/yusuf/">Yusuf Aytar</a>
+              </span>
+            </div>
+
+             <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://youtube.com" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <img src="./static/youtube.png" alt="Youtube Link">
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+
+              
+
+
+            </div>
+
+          </div>
+        </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+
+    <!-- Abstract. -->              
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">Abstract</h2>
+      <div class="content has-text-justified">
+        <p>
+          FlexCap is a module that generates flexible image descriptions. It can describe <i>any</i> selected region of an image and <i>adjust</i> the description length as desired. We train FlexCap to produce length-conditioned text describing a bounding box in the image.  By using the length of textual description as a proxy for information density we enable controllable generation of the full spectrum of localized image descriptions, ranging from short object names tofull sentence captions. We explore several applications of this approach. First, FlexCap performs better at dense captioning as compared to baselines on the Visual Genome dataset. Second, by using FlexCap for visual grounding with an LLM for reasoning as FlexCap-LLM, we exceed the state-of-the-art zero-shot performance on visual question answering tasks. Finally, we qualitatively show the diverse applicability of FlexCap to image labeling, object attribute recognition,and visual dialog.
+          <br><br><br><br>
+        </p>
+      </div>
+       
+    </div>
+  </div>
+  <!-- Abstract. --> 
+
+  <!-- Localization. -->              
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">Describing Different Regions of Same Image</h2>
+      <div class="content has-text-centered">
+        <span class="link-block">
+                <a href="./flexcap-spatial.html" class="internal-link button is-normal is-rounded is-dark">
+                  <span>Interactive Results</span>
+                </a>
+              </span>
+      </div>
+       
+    </div>
+  </div>
+  <!-- Localization. -->
+
+  <!-- Length Conditioning. -->              
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">Describing Same Region with Different Lengths</h2>
+      <div class="content has-text-justified">
+        
+      </div>
+       
+    </div>
+  </div>
+  <!-- Length Conditioning. -->
+
+  <!-- FlexCapLLM. -->              
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">FlexCapLLM</h2>
+      <div class="content has-text-justified">
+        
+      </div>
+       
+    </div>
+  </div>
+  <!-- FlexCapLLM. -->
+
+  <!-- Object Attributes. -->              
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">Extracting Object Attributes</h2>
+      <div class="content has-text-justified">
+        
+      </div>
+       
+    </div>
+  </div>
+  <!-- Object Attributes. -->
+
+</div>
+</section>
+</body>
