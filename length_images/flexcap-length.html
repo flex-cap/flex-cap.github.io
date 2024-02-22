@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+.slider-container {
+  position: relative;
+  width: 800px;
+  margin: 0 auto;
+}
+
+.slider-track {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  margin-bottom: 20px;
+}
+
+.carousel-item {
+  width: 100px;
+  height: 50px;
+  margin: 0 5px;
+  object-fit: cover;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.carousel-item:hover {
+  opacity: 0.8;
+}
+
+.carousel-item.selected {
+  filter: saturate(1.5) brightness(1.2); /* Enhance color and brightness */
+  border: 3px solid #fff; /* Whiter border for contrast */
+}
+
+.slider-container {
+  position: absolute; /* changed from relative */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* centered positioning */
+  width: 800px;
+  margin: 0; /* no need for auto since positioned absolutely */
+}
+
+.slider-viewer {
+  position: relative;
+  width: 900px;
+  height: 450px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.viewer-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease-in-out;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.button {
+  background-color: #eee;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: #ccc;
+}
+
+.button i {
+  font-size: 20px;
+}
+</style>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Carousel</title>
+</head>
+<body>
+  <div class="slider-container">
+    <div class="slider-track">
+      <img class="carousel-item" src="01.png" alt="Image 1">
+      <img class="carousel-item" src="02.png" alt="Image 2">
+      <img class="carousel-item" src="03.png" alt="Image 3">
+      </div>
+    <div class="slider-viewer">
+      <img class="viewer-image" src="01.png" alt="Current Image">
+    </div>
+    <div class="navigation">
+      <button class="prev-button"><i class="fas fa-chevron-left"></i></button>
+      <button class="next-button"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+  <script src="https://kit.fontawesome.com/YOUR_FONT_AWESOME_KIT_CODE.js" crossorigin="anonymous"></script>
+
+  <script>
+const track = document.querySelector('.slider-track');
+const viewerImage = document.querySelector('.viewer-image');
+const prevButton = document.querySelector('.prev-button');
+const nextButton = document.querySelector('.next-button');
+const carouselItems = document.querySelectorAll('.carousel-item');
+
+// Added a variable to store the previously selected item
+let previouslySelected = null;
+
+// Updated click handler to update viewer image and highlight selected item
+carouselItems.forEach((item, index) => {
+  item.addEventListener('click', () => {
+    if (previouslySelected) {
+      previouslySelected.classList.remove('selected');
+    }
+    item.classList.add('selected'); // Add "selected" class for styling
+    currentImageIndex = index;
+    updateViewerImage();
+    previouslySelected = item; // Update previously selected item
+  });
+});
+
+// Update navigation buttons functionality
+prevButton.addEventListener('click', () => {
+  currentImageIndex--;
+  if (currentImageIndex < 0) {
+    currentImageIndex = carouselItems.length - 1;
+  }
+  updateViewerImage();
+});
+
+nextButton.addEventListener('click', () => {
+   currentImageIndex++;
+  if (currentImageIndex == carouselItems.length) {
+    currentImageIndex = 0;
+  }
+  updateViewerImage();
+});
+
+function updateViewerImage() {
+  const currentImage = track.children[currentImageIndex];
+  viewerImage.src = currentImage.src;
+  viewerImage.alt = currentImage.alt;
+}
+</script>
+</body>
+</html>
