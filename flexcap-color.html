@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FlexCap Length Conditioning Results</title>
+  <title>FlexCap Color Extraction Results</title>
   <style>
     .hero.teaser {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 20vh;
+      height: 15vh;
       text-align: center;
     }
     .slider-track {
@@ -26,7 +26,7 @@
       width: 200px;
       height: 200px;
       margin: 0 5px;
-      object-fit: contain;
+      object-fit: cover;
       border: 2px solid #ddd;
       border-radius: 5px;
       cursor: pointer;
@@ -123,7 +123,7 @@
         <div class="container is-max-desktop">
           <div class="hero-body">
             <h2 class="title has-text-centered">
-               <span>FlexCap</span> can describe same region in varying lengths.
+               <span>FlexCap</span> can describe the colors of objects.
             </h2>
             <br>
             <h2 class="has-text-centered title is-4"> Select an image below. </h2>
@@ -136,48 +136,28 @@
     
     
     <div class="slider-track">
-      <img class="carousel-item" src="./length_images/01.png" alt="Image 1">
-      <img class="carousel-item" src="./length_images/02.png" alt="Image 2">
-      <img class="carousel-item" src="./length_images/03.png" alt="Image 3">
-      <img class="carousel-item" src="./length_images/04.png" alt="Image 4">
-      <img class="carousel-item" src="./length_images/05.png" alt="Image 5">
-      <img class="carousel-item" src="./length_images/06.png" alt="Image 6">
-      <img class="carousel-item" src="./length_images/07.png" alt="Image 7">
-      <img class="carousel-item" src="./length_images/08.png" alt="Image 8">
-      <img class="carousel-item" src="./length_images/09.png" alt="Image 9">
-      <img class="carousel-item" src="./length_images/10.png" alt="Image 10">
-      <img class="carousel-item" src="./length_images/11.png" alt="Image 11">
-      <img class="carousel-item" src="./length_images/12.png" alt="Image 12">
-      <img class="carousel-item" src="./length_images/13.png" alt="Image 13">
-      <img class="carousel-item" src="./length_images/14.png" alt="Image 14">
-      <img class="carousel-item" src="./length_images/15.png" alt="Image 15">
-      <img class="carousel-item" src="./length_images/16.png" alt="Image 16">
-      <img class="carousel-item" src="./length_images/17.png" alt="Image 17">
-      <img class="carousel-item" src="./length_images/18.png" alt="Image 18">
-      <img class="carousel-item" src="./length_images/19.png" alt="Image 19">
-      <img class="carousel-item" src="./length_images/10.png" alt="Image 10">
-      <img class="carousel-item" src="./length_images/21.png" alt="Image 21">
-      <img class="carousel-item" src="./length_images/22.png" alt="Image 22">
-      <img class="carousel-item" src="./length_images/23.png" alt="Image 23">
-      <img class="carousel-item" src="./length_images/24.png" alt="Image 24">
-      <img class="carousel-item" src="./length_images/25.png" alt="Image 25">
-      <img class="carousel-item" src="./length_images/26.png" alt="Image 26">
-      <img class="carousel-item" src="./length_images/27.png" alt="Image 27">
-      <img class="carousel-item" src="./length_images/28.png" alt="Image 28">
-      <img class="carousel-item" src="./length_images/29.png" alt="Image 29">
-      <img class="carousel-item" src="./length_images/30.png" alt="Image 30">
-      <img class="carousel-item" src="./length_images/31.png" alt="Image 31">
-      <img class="carousel-item" src="./length_images/32.png" alt="Image 32">
-      <img class="carousel-item" src="./length_images/33.png" alt="Image 33">
-      <img class="carousel-item" src="./length_images/34.png" alt="Image 34">
-      <img class="carousel-item" src="./length_images/35.png" alt="Image 35">
+      <img class="carousel-item" src="./color_images/00.png" alt="Image 0">
+      <img class="carousel-item" src="./color_images/01.png" alt="Image 1">
+      <img class="carousel-item" src="./color_images/02.png" alt="Image 2">
+      <img class="carousel-item" src="./color_images/03.png" alt="Image 3">
+      <img class="carousel-item" src="./color_images/04.png" alt="Image 4">
+      <img class="carousel-item" src="./color_images/05.png" alt="Image 5">
+      <img class="carousel-item" src="./color_images/06.png" alt="Image 6">
+      <img class="carousel-item" src="./color_images/07.png" alt="Image 7">
+      <img class="carousel-item" src="./color_images/08.png" alt="Image 8">
+      <img class="carousel-item" src="./color_images/09.png" alt="Image 9">
+      <img class="carousel-item" src="./color_images/10.png" alt="Image 10">
+      <img class="carousel-item" src="./color_images/11.png" alt="Image 11">
+      <img class="carousel-item" src="./color_images/12.png" alt="Image 12">
+      <img class="carousel-item" src="./color_images/13.png" alt="Image 13">
+      <img class="carousel-item" src="./color_images/14.png" alt="Image 14">
     </div>
     <div class="navigation">
       <button class="prev-button">Prev</button>
       <button class="next-button">Next</button>
     </div>
     <div class="slider-viewer">
-      <img class="viewer-image" src="./length_images/01.png" alt="Current Image">
+      <img class="viewer-image" src="./color_images/00.png" alt="Current Image">
     </div>
   </div>
 
@@ -244,23 +224,6 @@
         updateViewerImage();
         updateCarouselPosition(); // Add this line
       });
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowLeft') {
-        currentImageIndex--;
-        if (currentImageIndex < 0) {
-          currentImageIndex = carouselItems.length - 1;
-        }
-        updateViewerImage();
-      } else if (event.key === 'ArrowRight') {
-        currentImageIndex++;
-        if (currentImageIndex == carouselItems.length) {
-          currentImageIndex = 0;
-        }
-        updateViewerImage();
-      }
     });
 
     // Keyboard navigation
