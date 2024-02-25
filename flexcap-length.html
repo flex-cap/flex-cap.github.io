@@ -10,7 +10,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 20vh;
+      height: 10vh;
       text-align: center;
     }
     .slider-track {
@@ -50,13 +50,15 @@
     }
 
     .slider-viewer {
-      width: 100%; /* Fill remaining space */
+      width: 100%; /* Adjusted width */
+      margin: 0 auto; /* Centered horizontally */
       height: auto;
       background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       overflow: hidden;
     }
+
 
     .viewer-image {
       width: 100%;
@@ -125,8 +127,6 @@
             <h2 class="title has-text-centered">
                <span>FlexCap</span> can describe same region in varying lengths.
             </h2>
-            <br>
-            <h2 class="has-text-centered title is-4"> Select an image below. </h2>
           </div>
         </div>
       </div>
@@ -135,6 +135,14 @@
   <div class="slider-container">
     
     
+    
+    <div class="navigation">
+      <button class="prev-button">Prev</button>
+      <button class="next-button">Next</button>
+    </div>
+    <div class="slider-viewer">
+      <img class="viewer-image" src="./length_images/01.png" alt="Current Image">
+    </div>
     <div class="slider-track">
       <img class="carousel-item" src="./length_images/01.png" alt="Image 1">
       <img class="carousel-item" src="./length_images/02.png" alt="Image 2">
@@ -171,13 +179,6 @@
       <img class="carousel-item" src="./length_images/33.png" alt="Image 33">
       <img class="carousel-item" src="./length_images/34.png" alt="Image 34">
       <img class="carousel-item" src="./length_images/35.png" alt="Image 35">
-    </div>
-    <div class="navigation">
-      <button class="prev-button">Prev</button>
-      <button class="next-button">Next</button>
-    </div>
-    <div class="slider-viewer">
-      <img class="viewer-image" src="./length_images/01.png" alt="Current Image">
     </div>
   </div>
 
