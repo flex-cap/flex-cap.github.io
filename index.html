@@ -129,7 +129,7 @@ transition: box-shadow 0.2s ease-in-out;
       <h2 class="title is-3">Abstract</h2>
       <div class="content has-text-justified">
         <p>
-          FlexCap is a module that generates flexible image descriptions. It can describe <i>any</i> selected region of an image and <i>adjust</i> the description length as desired. We train FlexCap to produce length-conditioned text describing a bounding box in the image.  By using the length of textual description as a proxy for information density we enable controllable generation of the full spectrum of localized image descriptions, ranging from short object names tofull sentence captions. We explore several applications of this approach. First, FlexCap performs better at dense captioning as compared to baselines on the Visual Genome dataset. Second, by using FlexCap for visual grounding with an LLM for reasoning as FlexCap-LLM, we exceed the state-of-the-art zero-shot performance on visual question answering tasks. Finally, we qualitatively show the diverse applicability of FlexCap to image labeling, object attribute recognition,and visual dialog.
+          FlexCap is a versatile vision-language model (VLM) capable of generating region-specific descriptions of varying lengths. Trained to produce length-conditioned captions for input bounding boxes, FlexCap empowers the user to control the information density of its output. This allows for descriptions ranging from  concise object labels to detailed captions. This capability has several valuable applications. Firstly, FlexCap demonstrates superior performance in dense captioning tasks on the Visual Genome dataset. Additionally, we introduce FlexCap-LLM, a visual question answering (VQA) system. FlexCap-LLM employs FlexCap to generate localized descriptions which serve as inputs to a large language model (LLM), achieving state-of-the-art zero-shot performance on some VQA datasets. Finally, we qualitatively demonstrate FlexCap's broad applicability in tasks such as image labeling, object attribute recognition, and visual dialog.
           <br><br><br><br>
         </p>
       </div>
@@ -183,27 +183,11 @@ transition: box-shadow 0.2s ease-in-out;
   </div>
   <!-- Localization. -->
 
-  
-
-  <!-- FlexCapLLM. -->              
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-      <h2 class="title is-3">FlexCapLLM</h2>
-      <div class="content has-text-justified">
-        <div class="content has-text-centered">
-          <img src="./index_figures/flexcapllm.png"></img>
-      </div>
-        
-      </div>
-       
-    </div>
-  </div>
-  <!-- FlexCapLLM. -->
 
   <!-- Object Attributes. -->              
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-      <h2 class="title is-3">Extracting Object Attributes</h2>
+      <h2 class="title is-3">Extracting Object Attributes with Prefixes</h2>
       <div class="content has-text-justified">
         <div class="content has-text-centered">
           <img src="./index_figures/attribute_extraction.png"></img>
@@ -234,6 +218,21 @@ transition: box-shadow 0.2s ease-in-out;
     </div>
   </div>
   <!-- Object Attributes. -->
+
+  <!-- FlexCapLLM. -->              
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">FlexCapLLM</h2>
+      <div class="content has-text-justified">
+        <div class="content has-text-centered">
+          <img src="./index_figures/flexcapllm.png"></img>
+      </div>
+        
+      </div>
+       
+    </div>
+  </div>
+  <!-- FlexCapLLM. -->
 
 </div>
 </section>
