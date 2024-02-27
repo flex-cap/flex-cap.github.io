@@ -68,20 +68,22 @@ transition: box-shadow 0.2s ease-in-out;
             <h1 class="title is-1 publication-title">FlexCap: Generating Rich, Localized, and  Flexible Captions in Images</h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a href="https://debidatta.github.io/">Debidatta Dwibedi</a>,
+                <a href="https://debidatta.github.io/">Debidatta Dwibedi</a><sup>1</sup>,
               </span>
               <span class="author-block">
-                <a href="https://vidhijain.github.io/">Vidhi Jain</a>,
+                <a href="https://vidhijain.github.io/">Vidhi Jain</a><sup>1,2</sup>,
               </span>
               <span class="author-block">
-                <a href="https://jonathantompson.github.io/">Jonathan Tompson</a>,
+                <a href="https://jonathantompson.github.io/">Jonathan Tompson</a><sup>1</sup>,
               </span>
               <span class="author-block">
-                <a href="https://www.robots.ox.ac.uk/~az/">Andrew Zisserman</a>,
+                <a href="https://www.robots.ox.ac.uk/~az/">Andrew Zisserman</a><sup>1</sup>,
               </span>
               <span class="author-block">
-                <a href="https://people.csail.mit.edu/yusuf/">Yusuf Aytar</a>
+                <a href="https://people.csail.mit.edu/yusuf/">Yusuf Aytar</a><sup>1</sup>
               </span>
+              <br>
+              &nbsp;&nbsp;&nbsp;<sup>1</sup>Google DeepMind&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sup>2</sup>Carnegie Mellon University&nbsp;&nbsp;&nbsp;
             </div>
 
              <div class="column has-text-centered">
@@ -126,7 +128,7 @@ transition: box-shadow 0.2s ease-in-out;
     <!-- Abstract. -->              
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-      <h2 class="title is-3">Abstract</h2>
+      <h2 class="title is-3 has-text-centered">Abstract</h2>
       <div class="content has-text-justified">
         <p>
           FlexCap is a versatile vision-language model (VLM) capable of generating region-specific descriptions of varying lengths. Trained to produce length-conditioned captions for input bounding boxes, FlexCap empowers the user to control the information density of its output. This allows for descriptions ranging from  concise object labels to detailed captions. This capability has several valuable applications. Firstly, FlexCap demonstrates superior performance in dense captioning tasks on the Visual Genome dataset. Additionally, we introduce FlexCap-LLM, a visual question answering (VQA) system. FlexCap-LLM employs FlexCap to generate localized descriptions which serve as inputs to a large language model (LLM), achieving state-of-the-art zero-shot performance on some VQA datasets. Finally, we qualitatively demonstrate FlexCap's broad applicability in tasks such as image labeling, object attribute recognition, and visual dialog.
@@ -144,14 +146,18 @@ transition: box-shadow 0.2s ease-in-out;
       <h2 class="title is-3">Describing Same Region with Different Lengths</h2>
       <div class="content has-text-justified">
         <div class="content has-text-centered">
-          <img src="./index_figures/length_conditioning.png"></img>
+          <img src="./index_figures/length_conditioning.svg"></img>
           <br/>
+          <p> 
+            FlexCap generates controllably rich localized descriptions for any region in an image. 
+            It has the flexibility to produce captions in a controllable manner which allows the full spectrum of valid descriptions to be explored from short object category names to fully-detailed captions. 
+          </p>
           <p>
-          For results on length conditioning click the button below.
+          For results on <strong>length conditioning</strong>, click the button below.
         </p>
         <span class="link-block">
                 <a href="./flexcap-length.html" class="internal-link button is-normal is-rounded is-dark">
-                  <span>Length Conditioned Results</span>
+                  <span>Length Conditioned Captions</span>
                 </a>
               </span>
       </div>
@@ -169,12 +175,16 @@ transition: box-shadow 0.2s ease-in-out;
       <div class="content has-text-centered">
         <img src="./index_figures/spatial_conditioning.png"></img>
 <br/>
+        <br>
         <p>
-          For more results on region captioning click the button below.
+          FlexCap can localize salient regions of the image and describing them with natural language sentences. Unlike prior dense captioning works, 
+          FlexCap generates more diverse sentences to describe visual content in controllable detail. 
+        </p><p>
+          Here we present interactive showcase of results for <strong>region captioning</strong>. You can draw a bounding box on the image and we display the best length-conditioned caption generated for the box.
         </p>
         <span class="link-block">
                 <a href="./flexcap-spatial.html" class="internal-link button is-normal is-rounded is-dark">
-                  <span>Interactive Results</span>
+                  <span>Interactive Region-Captioning</span>
                 </a>
               </span>
       </div>
@@ -189,6 +199,26 @@ transition: box-shadow 0.2s ease-in-out;
       <div class="column is-four-fifths">
       <h2 class="title is-3">Extracting Object Attributes with Prefixes</h2>
       <div class="content has-text-justified">
+        <p>FlexCap is trained to generate captions autoregressively, that is, conditioned on the previous tokens. 
+          This paradigm enables  <strong>emergent</strong> capabilities to caption region attributes.
+          Here we present some of the attributes that FlexCap can generate for regions in an image.
+          <list>
+          <ul><a href="./flexcap-action.html" class="internal-link is-normal is-rounded">
+            <span>Human Action</span>:
+          </a>What <i>the person is</i> doing? like riding, jumping, etc.</ul>
+          <ul><a href="./flexcap-function.html" class="internal-link is-normal is-rounded">
+            <span>Object Use</span>:
+          </a>What the object <i>is used for</i>? like transportation</ul>
+          <ul><a href="./flexcap-text.html" class="internal-link is-normal is-rounded">
+            <span>Text</span>
+          </a>What <i>the text</i> in the bounded box says?</ul>
+          <ul><a href="./flexcap-material.html" class="internal-link  is-normal is-rounded">
+            <span>Object Material</span>
+          </a>What <i>the object is made of</i>? like wood, metal, etc.</ul>
+          <ul><a href="./flexcap-color.html" class="internal-link is-normal is-rounded">
+            <span>Object Color</span>
+          </a>What <i>the color</i> of the object is? like yellow, cyan, etc.</ul>
+          </list></p>
         <div class="content has-text-centered">
           <img src="./index_figures/attribute_extraction.png"></img>
 <br/>
@@ -225,11 +255,14 @@ transition: box-shadow 0.2s ease-in-out;
       <h2 class="title is-3">FlexCapLLM</h2>
       <div class="content has-text-justified">
         <div class="content has-text-centered">
-          <img src="./index_figures/flexcapllm.png"></img>
+          <img src="./index_figures/flexcapllm.svg"></img>
       </div>
         
       </div>
-       
+       <p>
+        Rich localized captions generated by FlexCap can be easily passed onto Large Language Models (LLMs) 
+        to enable zero-shot visual question answering.
+       </p>
     </div>
   </div>
   <!-- FlexCapLLM. -->
