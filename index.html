@@ -194,25 +194,25 @@ transition: box-shadow 0.2s ease-in-out;
       <div class="column is-four-fifths">
       <h2 class="title is-3">Extracting Object Attributes with Prefixes</h2>
       <div class="content has-text-justified">
-        <p>FlexCap is trained to generate captions autoregressively, that is, conditioned on the previous tokens. 
-          This paradigm enables  <strong>emergent</strong> capabilities to caption region attributes.
-          Here we present some of the attributes that FlexCap can generate for regions in an image.
+        <p>
+          Training FlexCap on a large dataset leads to an <strong>emergent capability</strong>: the model can extract desired information for a specific image region using input prefixes.
+          We present below some examples of attributes that FlexCap can generate:
           <list>
           <ul><a href="./flexcap-action.html" class="internal-link is-normal is-rounded">
             <span>Human Action</span>:
-          </a>The prompt for extracting actions: <i>The person is _____</i></ul>
+          </a>The prefix for extracting actions: <i>The person is _____</i></ul>
           <ul><a href="./flexcap-function.html" class="internal-link is-normal is-rounded">
             <span>Object Use</span>:
-          </a>The prompt for extracting the function of an object:  <i>This is used for _____</i> </ul>
+          </a>The prefix for extracting the function of an object:  <i>This is used for _____</i> </ul>
           <ul><a href="./flexcap-text.html" class="internal-link is-normal is-rounded">
             <span>Text</span>
-          </a>The prompt for performing OCR: <i>The sign says _____</i></ul>
+          </a>The prefix for performing OCR: <i>The sign says _____</i></ul>
           <ul><a href="./flexcap-material.html" class="internal-link  is-normal is-rounded">
             <span>Object Material</span>
-          </a>The prompt for extracting material: <i>It is made of _____</i></ul>
+          </a>The prefix for extracting material: <i>It is made of _____</i></ul>
           <ul><a href="./flexcap-color.html" class="internal-link is-normal is-rounded">
             <span>Object Color</span>
-          </a>The prompt for extracting color: <i>The color is _____</i></ul>
+          </a>The prefix for extracting color: <i>The color is _____</i></ul>
           </list></p>
         <div class="content has-text-centered">
           <img src="./index_figures/attribute_extraction.png"></img>
