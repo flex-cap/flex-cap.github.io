@@ -1,55 +1,83 @@
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
 
-    @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
-    h1 {
-      display: flex;
+  h1 {
+    display: flex;
 
-      font-family: 'Lora', serif;
-      text-align: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-    .gallery {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 10px;
-}
+    font-family: 'Lora', serif;
+    text-align: center;
+    justify-content: center;
+    font-size: 24px;
+  }
 
-.gallery img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  transition: transform 0.2s ease-in-out;
-transition: box-shadow 0.2s ease-in-out;
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px;
+  }
 
-}
+  .gallery img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.2s ease-in-out;
+    transition: box-shadow 0.2s ease-in-out;
 
-.gallery img:hover {
-  transform: scale(1.025);
- box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-}
+  }
 
+  .gallery img:hover {
+    transform: scale(1.025);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
 
-</style>  
+  .carousel-item {
+    cursor: pointer;
+  }
+
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+  }
+
+  .lightbox-content {
+    max-width: 80%;
+    max-height: 80%;
+    margin: auto;
+    display: block;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+  }
+</style>
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
-  <meta name="description"
-        content="Generating Rich, Localized, and  Flexible Captions in Images.">
+  <meta name="description" content="Generating Rich, Localized, and  Flexible Captions in Images.">
   <meta name="keywords" content="Flexible, Captions, VQA, Visual Recognition, Visual Dialog">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FlexCap: Generating Rich, Localized, and  Flexible Captions in Images</title>
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
+  <title>FlexCap: Generating Rich, Localized, and Flexible Captions in Images</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
@@ -59,13 +87,15 @@ transition: box-shadow 0.2s ease-in-out;
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
 </head>
+
 <body>
   <section class="hero">
     <div class="hero-body">
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">FlexCap: Generating Rich, Localized, and  Flexible Captions in Images</h1>
+            <h1 class="title is-1 publication-title">FlexCap: Generating Rich, Localized, and Flexible Captions in
+              Images</h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
                 <a href="https://debidatta.github.io/">Debidatta Dwibedi</a><sup>1</sup>,
@@ -83,144 +113,957 @@ transition: box-shadow 0.2s ease-in-out;
                 <a href="https://people.csail.mit.edu/yusuf/">Yusuf Aytar</a><sup>1</sup>
               </span>
               <br>
-              &nbsp;&nbsp;&nbsp;<sup>1</sup>Google DeepMind&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sup>2</sup>Carnegie Mellon University&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;<sup>1</sup>Google DeepMind&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sup>2</sup>Carnegie
+              Mellon University&nbsp;&nbsp;&nbsp;
             </div>
 
-             <div class="column has-text-centered">
-            <div class="publication-links">
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
                       <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
 
-              <span class="link-block">
-                <a href="https://youtube.com" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
+                <span class="link-block">
+                  <a href="https://youtube.com" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
                       <img src="./static/youtube.png" alt="Youtube Link">
-                  </span>
-                  <span>Video</span>
-                </a>
-              </span>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 
+  <section class="section">
+    <div class="container is-max-desktop">
+
+
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-2 has-text-centered">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              FlexCap is a versatile vision-language model (VLM) capable of generating region-specific descriptions of
+              varying lengths. Trained to produce length-conditioned captions for input bounding boxes, FlexCap empowers
+              the user to control the information density of its output. This allows for descriptions ranging from
+              concise object labels to detailed captions. This capability has several valuable applications. Firstly,
+              FlexCap demonstrates superior performance in dense captioning tasks on the Visual Genome dataset.
+              Additionally, we introduce FlexCap-LLM, a visual question answering (VQA) system. FlexCap-LLM employs
+              FlexCap to generate localized descriptions which serve as inputs to a large language model (LLM),
+              achieving state-of-the-art zero-shot performance on some VQA datasets. Finally, we qualitatively
+              demonstrate FlexCap's broad applicability in tasks such as image labeling, object attribute recognition,
+              and visual dialog.
+              <br><br><br><br>
+            </p>
           </div>
+
         </div>
       </div>
-    </div>
-  </div>
-</section>
+      <!-- Abstract. -->
 
-<section class="section">
-  <div class="container is-max-desktop">
-
-
-    <!-- Abstract. -->              
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-      <h2 class="title is-3 has-text-centered">Abstract</h2>
-      <div class="content has-text-justified">
-        <p>
-          FlexCap is a versatile vision-language model (VLM) capable of generating region-specific descriptions of varying lengths. Trained to produce length-conditioned captions for input bounding boxes, FlexCap empowers the user to control the information density of its output. This allows for descriptions ranging from  concise object labels to detailed captions. This capability has several valuable applications. Firstly, FlexCap demonstrates superior performance in dense captioning tasks on the Visual Genome dataset. Additionally, we introduce FlexCap-LLM, a visual question answering (VQA) system. FlexCap-LLM employs FlexCap to generate localized descriptions which serve as inputs to a large language model (LLM), achieving state-of-the-art zero-shot performance on some VQA datasets. Finally, we qualitatively demonstrate FlexCap's broad applicability in tasks such as image labeling, object attribute recognition, and visual dialog.
-          <br><br><br><br>
-        </p>
-      </div>
-       
-    </div>
-  </div>
-  <!-- Abstract. --> 
-
-  <!-- Length Conditioning. -->              
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-      <h2 class="title is-3">Describing Same Region with Different Lengths</h2>
-      <div class="content has-text-justified">
-        <div class="content has-text-centered">
-          <img src="./index_figures/length_conditioning.png"></img>
-          <br/>
-          <p> 
-            FlexCap generates controllably rich localized descriptions for any region in an image. 
-            It has the flexibility to produce captions in a controllable manner which allows the full spectrum of valid descriptions to be explored from short object category names to fully-detailed captions. 
-          </p>
-          <p>
-          For results on <strong>length conditioning</strong>, click the button below.
-        </p>
-        <span class="link-block">
+      <!-- Length Conditioning. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-2">Describing Same Region with Different Lengths</h2>
+          <div class="content has-text-justified">
+            <div class="content has-text-centered">
+              <img src="./index_figures/length_conditioning.png"></img>
+              <br />
+              <p>
+                FlexCap generates controllably rich localized descriptions for any region in an image.
+                It has the flexibility to produce captions in a controllable manner which allows the full spectrum of
+                valid descriptions to be explored from short object category names to fully-detailed captions.
+              </p>
+              <p>
+                For results on <strong>length conditioning</strong>, click on the image to inspect closely.
+              </p>
+              <!-- <span class="link-block">
                 <a href="./flexcap-length.html" class="internal-link button is-normal is-rounded is-dark">
                   <span>Length Conditioned Captions</span>
                 </a>
               </span>
+      </div> -->
+              <section class="hero is-light is-small">
+                <div class="hero-body">
+                  <div class="container">
+                    <div id="results-carousel" class="carousel results-carousel">
+                      <div class="item">
+                        <a href="./length_images/01.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/01.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                      <div class="item">
+                        <a href="./length_images/02.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/02.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                      <div class="item">
+                        <a href="./length_images/03.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/03.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                      <div class="item">
+                        <a href="./length_images/04.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/04.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                      <div class="item">
+                        <a href="./length_images/05.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/05.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                      <div class="item">
+                        <a href="./length_images/06.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/06.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                      <div class="item">
+                        <a href="./length_images/07.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/07.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                      <div class="item">
+                        <a href="./length_images/08.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/08.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                      <div class="item">
+                        <a href="./length_images/09.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/09.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                      <div class="item">
+                        <a href="./length_images/10.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/10.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                      <div class="item">
+                        <a href="./length_images/11.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/11.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                      <div class="item">
+                        <a href="./length_images/12.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/12.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                      <div class="item">
+                        <a href="./length_images/13.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/13.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                      <div class="item">
+                        <a href="./length_images/14.png" data-lightbox="image">
+                          <img class="carousel-item" width="100%" height="auto" src="./length_images/14.png"
+                            alt="Image 0">
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
       </div>
-        
-      </div>
-       
-    </div>
-  </div>
-  <!-- Length Conditioning. -->
+      <!-- Length Conditioning. -->
 
-  <!-- Localization. -->              
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-      <h2 class="title is-3">Describing Different Regions of Same Image</h2>
-      <div class="content has-text-centered">
-        <img src="./index_figures/spatial_conditioning.png"></img>
-<br/>
-        <br>
-        <p>
-          FlexCap can localize salient regions of the image and describing them with natural language sentences. Unlike prior dense captioning works, 
-          FlexCap generates more diverse sentences to describe visual content in controllable detail. 
-        </p><p>
-          Here we present interactive showcase of results for <strong>region captioning</strong>. You can draw a bounding box on the image and we display the best length-conditioned caption generated for the box.
-        </p>
-        <span class="link-block">
+      <!-- Localization. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-2">Describing Different Regions of Same Image</h2>
+          <div class="content has-text-centered">
+            <img src="./index_figures/spatial_conditioning.png"></img>
+            <br />
+            <br>
+            <p>
+              FlexCap can localize salient regions of the image and describing them with natural language sentences.
+              Unlike prior dense captioning works,
+              FlexCap generates more diverse sentences to describe visual content in controllable detail.
+            </p>
+            <p>
+              Here we present interactive showcase of results for <strong>region captioning</strong>.
+              You can draw a bounding box on the image and see the best caption among the pre-generated ones for that
+              box.
+              Otherwise, you can select the top N bounding-boxes and captions for the image.
+              Explore the images for
+              <a href="./flexcap-spatial.html" class="internal-link is-normal is-rounded">
+                <span>Interactive Region-Captioning</span>
+              </a> by clicking on any image to inspect closely.
+            </p>
+            <!-- <span class="link-block">
                 <a href="./flexcap-spatial.html" class="internal-link button is-normal is-rounded is-dark">
                   <span>Interactive Region-Captioning</span>
                 </a>
-              </span>
+              </span> -->
+            <section class="hero is-light is-small">
+              <div class="hero-body">
+                <div class="container">
+                  <div id="results-carousel" class="carousel results-carousel">
+                    <div class="item">
+                      <a href="./images/00.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/00.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/01.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/01.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/02.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/02.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/03.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/03.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/04.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/04.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/05.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/05.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/06.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/06.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/07.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/07.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/08.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/08.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/09.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/09.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/10.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/10.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/11.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/11.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/12.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/12.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/13.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/13.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/14.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/14.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/15.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/15.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/16.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/16.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/17.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/17.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/18.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/18.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/19.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/19.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/20.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/20.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/21.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/21.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/22.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/22.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/23.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/23.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/24.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/24.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/25.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/25.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/26.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/26.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/27.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/27.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/28.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/28.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/29.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/29.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/30.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/30.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/31.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/31.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/32.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/32.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/33.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/33.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/34.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/34.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/35.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/35.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/36.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/36.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/37.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/37.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/38.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/38.jpg" alt="Image 0">
+                      </a>
+                    </div>
+                    <div class="item">
+                      <a href="./images/39.html" data-lightbox="image">
+                        <img class="carousel-item" width="100%" height="auto" src="./images/39.jpg" alt="Image 0">
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <p>
+
+          </div>
+
+        </div>
       </div>
-       
-    </div>
-  </div>
-  <!-- Localization. -->
+      <!-- Localization. -->
 
+      <!-- Object Attributes. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-2">Extracting Object Attributes with Prefixes</h2>
+          <div class="content has-text-justified">
+            <img src="./index_figures/attribute_extraction.png"></img>
+            <p>FlexCap is trained to generate captions autoregressively, that is, conditioned on the previous tokens.
+              This paradigm enables <strong>emergent</strong> capabilities to caption region attributes.
+              Here we present some of the attributes that FlexCap can generate for regions in an image.
+              <list>
+                <h3><a href="./flexcap-action.html" class="internal-link is-normal is-rounded">
+                    <span>Human Action</span>:
+                  </a>What <i>the person is</i> doing? </h3>
+                <!-- like riding, jumping, etc. -->
+                <section class="hero is-light is-small">
+                  <div class="hero-body">
+                    <div class="container">
+                      <div id="results-carousel" class="carousel results-carousel">
+                        <div class="item">
+                          <a href="./action_images/00.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/00.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/01.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/01.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/02.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/02.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/03.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/03.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/04.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/04.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/05.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/05.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/06.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/06.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/07.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/07.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/08.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/08.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/09.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/09.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/10.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/10.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/11.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/11.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/12.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/12.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/13.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/13.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./action_images/14.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./action_images/14.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <h3><a href="./flexcap-function.html" class="internal-link is-normal is-rounded">
+                    <span>Object Use</span>:
+                  </a>What the object <i>is used for</i>?</h3>
+                <!-- like transportation -->
+                <section class="hero is-light is-small">
+                  <div class="hero-body">
+                    <div class="container">
+                      <div id="results-carousel" class="carousel results-carousel">
+                        <div class="item">
+                          <a href="./function_images/00.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/00.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/01.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/01.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/02.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/02.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/03.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/03.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/04.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/04.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/05.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/05.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/06.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/06.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/07.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/07.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/08.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/08.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/09.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/09.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/10.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/10.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/11.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/11.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/12.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/12.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/13.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/13.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./function_images/14.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./function_images/14.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <h3><a href="./flexcap-text.html" class="internal-link is-normal is-rounded">
+                    <span>Text</span>:
+                  </a> What <i>the text</i> in the bounded box says?</h3>
+                <section class="hero is-light is-small">
+                  <div class="hero-body">
+                    <div class="container">
+                      <div id="results-carousel" class="carousel results-carousel">
+                        <div class="item">
+                          <a href="./text_images/00.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/00.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/01.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/01.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/02.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/02.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/03.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/03.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/04.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/04.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/05.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/05.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/06.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/06.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/07.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/07.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/08.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/08.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/09.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/09.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/10.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/10.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/11.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/11.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/12.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/12.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/13.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/13.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./text_images/14.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./text_images/14.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <h3><a href="./flexcap-material.html" class="internal-link  is-normal is-rounded">
+                    <span>Object Material</span>:
+                  </a>What <i>the object is made of</i>? </h3>
+                <!-- like wood, metal, etc. -->
+                <section class="hero is-light is-small">
+                  <div class="hero-body">
+                    <div class="container">
+                      <div id="results-carousel" class="carousel results-carousel">
+                        <div class="item">
+                          <a href="./material_images/00.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/00.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/01.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/01.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/02.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/02.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/03.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/03.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/04.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/04.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/05.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/05.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/06.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/06.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/07.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/07.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/08.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/08.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/09.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/09.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/10.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/10.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/11.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/11.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/12.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/12.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/13.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/13.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./material_images/14.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./material_images/14.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <h3><a href="./flexcap-color.html" class="internal-link is-normal is-rounded">
+                    <span>Object Color</span>:
+                  </a>What <i>the color</i> of the object is? </h3>
+                <!-- like yellow, cyan, etc. -->
+                <section class="hero is-light is-small">
+                  <div class="hero-body">
+                    <div class="container">
+                      <div id="results-carousel" class="carousel results-carousel">
+                        <div class="item">
+                          <a href="./color_images/00.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/00.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/01.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/01.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/02.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/02.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/03.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/03.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/04.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/04.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/05.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/05.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/06.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/06.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/07.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/07.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/08.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/08.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/09.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/09.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/10.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/10.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/11.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/11.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/12.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/12.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/13.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/13.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                        <div class="item">
+                          <a href="./color_images/14.png" data-lightbox="image">
+                            <img class="carousel-item" width="100%" height="auto" src="./color_images/14.png"
+                              alt="Image 0">
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </list>
+            </p>
 
-  <!-- Object Attributes. -->              
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-      <h2 class="title is-3">Extracting Object Attributes with Prefixes</h2>
-      <div class="content has-text-justified">
-        <p>FlexCap is trained to generate captions autoregressively, that is, conditioned on the previous tokens. 
-          This paradigm enables  <strong>emergent</strong> capabilities to caption region attributes.
-          Here we present some of the attributes that FlexCap can generate for regions in an image.
-          <list>
-          <ul><a href="./flexcap-action.html" class="internal-link is-normal is-rounded">
-            <span>Human Action</span>:
-          </a>What <i>the person is</i> doing? like riding, jumping, etc.</ul>
-          <ul><a href="./flexcap-function.html" class="internal-link is-normal is-rounded">
-            <span>Object Use</span>:
-          </a>What the object <i>is used for</i>? like transportation</ul>
-          <ul><a href="./flexcap-text.html" class="internal-link is-normal is-rounded">
-            <span>Text</span>
-          </a>What <i>the text</i> in the bounded box says?</ul>
-          <ul><a href="./flexcap-material.html" class="internal-link  is-normal is-rounded">
-            <span>Object Material</span>
-          </a>What <i>the object is made of</i>? like wood, metal, etc.</ul>
-          <ul><a href="./flexcap-color.html" class="internal-link is-normal is-rounded">
-            <span>Object Color</span>
-          </a>What <i>the color</i> of the object is? like yellow, cyan, etc.</ul>
-          </list></p>
-        <div class="content has-text-centered">
-          <img src="./index_figures/attribute_extraction.png"></img>
-<br/>
-        <p>
+            <!-- <p>
           For results on region attribute extraction click the button below.
-        </p>
-        <span class="link-block">
+        </p> -->
+            <!-- <span class="link-block">
                 <a href="./flexcap-action.html" class="internal-link button is-normal is-rounded is-dark">
                   <span>Human Action</span>
                 </a>
@@ -236,32 +1079,58 @@ transition: box-shadow 0.2s ease-in-out;
               <a href="./flexcap-color.html" class="internal-link button is-normal is-rounded is-dark">
                   <span>Object Color</span>
                 </a>
-              </span>
+              </span> -->
+          </div>
+        </div>
+
+      </div>
+      <!-- Object Attributes. -->
+
+      <!-- FlexCapLLM. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-2">FlexCapLLM</h2>
+          <div class="content has-text-justified">
+            <p>
+              Rich localized captions generated by FlexCap can be easily passed onto Large Language Models (LLMs)
+              to enable zero-shot visual question answering.
+              Here we present some of the results of FlexCapLLM. Click on any of the images to
+              inspect closely.
+            </p>
+            <div class="content has-text-centered">
+              <video poster="./flexcapllm_images/flexcap_video.001.jpeg" width="100%" height="auto" controls>
+                <source src="./flexcapllm_images/flexcapllm.m4v" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
         </div>
       </div>
-       
-    </div>
-  </div>
-  <!-- Object Attributes. -->
-
-  <!-- FlexCapLLM. -->              
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-      <h2 class="title is-3">FlexCapLLM</h2>
-      <div class="content has-text-justified">
-        <div class="content has-text-centered">
-          <img src="./index_figures/flexcapllm.png"></img>
+      <div class="columns is-centered has-text-centered">
+        <div class="columns is-four-fifths">
+          <div class="column">
+            <div class="content">
+              <a href="./flexcapllm_images/00.png" data-lightbox="image">
+                <img class="carousel-item" width="auto" height="100%" src="./flexcapllm_images/00.png" alt="Image 0">
+              </a>
+            </div>
+          </div>
+          <div class="column">
+            <div class="content">
+              <a href="./flexcapllm_images/01.png" data-lightbox="image">
+                <img class="carousel-item" width="auto" height="100%" src="./flexcapllm_images/01.png" alt="Image 0">
+              </a>
+            </div>
+          </div>
+          <div class="column">
+            <div class="content">
+              <a href="./flexcapllm_images/02.png" data-lightbox="image">
+                <img class="carousel-item" width="auto" height="100%" src="./flexcapllm_images/02.png" alt="Image 0">
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-        
-      </div>
-       <p>
-        Rich localized captions generated by FlexCap can be easily passed onto Large Language Models (LLMs) 
-        to enable zero-shot visual question answering.
-       </p>
-    </div>
-  </div>
-  <!-- FlexCapLLM. -->
-
-</div>
-</section>
+      <!-- FlexCapLLM. -->
+  </section>
 </body>
