@@ -264,22 +264,6 @@
       }
     });
 
-    // Keyboard navigation
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowLeft') {
-        currentImageIndex--;
-        if (currentImageIndex < 0) {
-          currentImageIndex = carouselItems.length - 1;
-        }
-        updateViewerImage();
-      } else if (event.key === 'ArrowRight') {
-        currentImageIndex++;
-        if (currentImageIndex == carouselItems.length) {
-          currentImageIndex = 0;
-        }
-        updateViewerImage();
-      }
-    });
   </script>
 </body>
 
