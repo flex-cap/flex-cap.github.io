@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlexCap Noteworthy Extraction Results</title>
+  <style>
+    .hero.teaser {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 10vh;
+      text-align: center;
+    }
+    .slider-track {
+      display: flex;
+      overflow-x: scroll;
+      scroll-behavior: smooth;
+      margin-bottom: 20px;
+      /* Limit the number of visible items */
+      width: calc(4 * (200px + 5px)); /* Adapt based on item width & margin */
+    }
+
+    .carousel-item {
+      width: 200px;
+      height: 200px;
+      margin: 0 5px;
+      object-fit: cover;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .carousel-item:hover {
+      opacity: 0.8;
+    }
+
+    .carousel-item.selected {
+      filter: saturate(1.5) brightness(1.2); /* Enhance color and brightness */
+      border: 3px solid #fff; /* Whiter border for contrast */
+    }
+
+    .slider-container {
+      position: relative; /* changed from absolute */
+      width: 800px;
+      margin: 0 auto; /* center horizontally */
+      padding-top: 20px; /* Add padding to separate from hero section */
+    }
+
+    .slider-viewer {
+      width: 70%; /* Adjusted width */
+      margin: 0 auto; /* Centered horizontally */
+      height: auto;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+
+    .viewer-image {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .button {
+      background-color: #eee;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .button:hover {
+      background-color: #ccc;
+    }
+
+    .button i {
+      font-size: 20px;
+    }
+
+    .prev-button,
+    .next-button {
+      background-color: #eee;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .prev-button,
+    .next-button:hover {
+      background-color: #ccc;
+    }
+
+    .prev-button i {
+      font-size: 20px;
+      margin-right: 5px; /* Optional spacing for arrows */
+    }
+
+    .next-button i {
+      font-size: 20px;
+      margin-left: 5px; /* Optional spacing for arrows */
+    }
+  </style>
+<link rel="stylesheet" href="./static/css/index.css">
+</head>
+
+<body>
+  <section class="hero teaser">
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
+        <div class="container is-max-desktop">
+          <div class="hero-body">
+            <h2 class="title has-text-centered">
+               <span>FlexCap</span> can describe notewortht aspects of an image.
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="slider-container">
+    <div class="navigation">
+      <button class="prev-button">Prev</button>
+      <button class="next-button">Next</button>
+    </div>
+    <div class="slider-viewer">
+      <img class="viewer-image" src="./notice_images/00.png" alt="Current Image">
+    </div>
+    <div class="slider-track">
+      <img class="carousel-item" src="./notice_images/00.png" alt="Image 0">
+      <img class="carousel-item" src="./notice_images/01.png" alt="Image 1">
+      <img class="carousel-item" src="./notice_images/02.png" alt="Image 2">
+      <img class="carousel-item" src="./notice_images/03.png" alt="Image 3">
+      <img class="carousel-item" src="./notice_images/04.png" alt="Image 4">
+      <img class="carousel-item" src="./notice_images/05.png" alt="Image 5">
+      <img class="carousel-item" src="./notice_images/06.png" alt="Image 6">
+      <img class="carousel-item" src="./notice_images/07.png" alt="Image 7">
+      <img class="carousel-item" src="./notice_images/08.png" alt="Image 8">
+      <img class="carousel-item" src="./notice_images/09.png" alt="Image 9">
+      <img class="carousel-item" src="./notice_images/10.png" alt="Image 10">
+      <img class="carousel-item" src="./notice_images/11.png" alt="Image 11">
+      <img class="carousel-item" src="./notice_images/12.png" alt="Image 12">
+      <img class="carousel-item" src="./notice_images/13.png" alt="Image 13">
+      <img class="carousel-item" src="./notice_images/14.png" alt="Image 14">
+    </div>
+  </div>
+
+  <script>
+    const track = document.querySelector('.slider-track');
+    const viewerImage = document.querySelector('.viewer-image');
+    const prevButton = document.querySelector('.prev-button');
+    const nextButton = document.querySelector('.next-button');
+    const carouselItems = document.querySelectorAll('.carousel-item');
+
+    // Added a variable to store the previously selected item
+    let previouslySelected = null;
+    let currentImageIndex = 0;
+
+    // Updated click handler to update viewer image and highlight selected item
+    carouselItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        if (previouslySelected) {
+          previouslySelected.classList.remove('selected');
+        }
+        item.classList.add('selected'); // Add "selected" class for styling
+        currentImageIndex = index;
+        updateViewerImage();
+        previouslySelected = item; // Update previously selected item
+      });
+    });
+
+    // Update navigation buttons functionality
+    prevButton.addEventListener('click', () => {
+      currentImageIndex--;
+      if (currentImageIndex < 0) {
+        currentImageIndex = carouselItems.length - 1;
+      }
+      updateViewerImage();
+    });
+
+    nextButton.addEventListener('click', () => {
+      currentImageIndex++;
+      if (currentImageIndex == carouselItems.length) {
+        currentImageIndex = 0;
+      }
+      updateViewerImage();
+    });
+
+    function updateViewerImage() {
+      const currentImage = track.children[currentImageIndex];
+      viewerImage.src = currentImage.src;
+      viewerImage.alt = currentImage.alt;
+    }
+
+    const maxIndex = carouselItems.length - 1;
+
+    function updateCarouselPosition() {
+      // Calculate scroll position based on currentImageIndex
+      const scrollPosition = currentImageIndex * (400 + 5); // Adapt if item width/margin change
+      sliderTrack.scrollLeft = scrollPosition;
+    }
+
+    // Update track position on image change
+    updateViewerImage(); // Call initially
+    carouselItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        currentImageIndex = index;
+        updateViewerImage();
+        updateCarouselPosition(); // Add this line
+      });
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        currentImageIndex--;
+        if (currentImageIndex < 0) {
+          currentImageIndex = carouselItems.length - 1;
+        }
+        updateViewerImage();
+      } else if (event.key === 'ArrowRight') {
+        currentImageIndex++;
+        if (currentImageIndex == carouselItems.length) {
+          currentImageIndex = 0;
+        }
+        updateViewerImage();
+      }
+    });
+  </script>
+</body>
+
+</html>
